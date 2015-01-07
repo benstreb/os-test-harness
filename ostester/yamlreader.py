@@ -15,6 +15,21 @@ def parse_from_string(string):
 
 
 class Zeros(collections.abc.Sequence):
+    """
+    Represents a zeroed region of memory in C
+    >>> yaml.load("!zeros 5")
+    Zeros(5)
+    >>> yaml.dump(Zeros(3))
+    "!zeros '3'\\n"
+    >>> list(Zeros(7))
+    [0, 0, 0, 0, 0, 0, 0]
+    >>> Zeros(3)[-3]
+    0
+    >>> Zeros(3)[-2]
+    0
+    >>> Zeros(4)[1:3]
+    [0, 0, 0]
+    """
 
     def __init__(self, len):
         self.len = len
