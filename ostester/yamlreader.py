@@ -28,7 +28,7 @@ class Zeros(collections.abc.Sequence):
     >>> Zeros(3)[-2]
     0
     >>> Zeros(4)[1:3]
-    [0, 0, 0]
+    [0, 0]
     """
 
     def __init__(self, len):
@@ -38,8 +38,10 @@ class Zeros(collections.abc.Sequence):
     def from_loader(loader, node):
         return Zeros(int(node.value))
 
-    def __getitem__(self, i):
-        if i > self.len-1 or i < -self.len:
+    def __getitem__(self, key):
+        if isinstance(key, slice):
+            return [0 for key in range(*key.indices(self.len))]
+        elif key > self.len-1 or key < -self.len:
             raise IndexError('Zeros index out of range')
         return 0
 
