@@ -31,7 +31,7 @@ class Zeros(collections.abc.Sequence):
     [0, 0]
     """
 
-    tag='!zeros'
+    yaml_tag='!zeros'
 
     def __init__(self, len):
         self.len = len
@@ -54,8 +54,9 @@ class Zeros(collections.abc.Sequence):
         return 'Zeros({})'.format(repr(self.len))
 
 yaml.add_representer(Zeros, lambda dumper, data:
-    dumper.represent_scalar(Zeros.tag, str(data.len)))
-yaml.add_constructor(Zeros.tag, Zeros.from_loader)
+    dumper.represent_scalar(Zeros.yaml_tag, str(data.len)))
+yaml.add_constructor(Zeros.yaml_tag, Zeros.from_loader)
+
 
 
 class Pointer(yaml.YAMLObject):
