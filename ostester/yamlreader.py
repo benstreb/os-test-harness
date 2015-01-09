@@ -60,7 +60,7 @@ yaml.add_constructor(Zeros.yaml_tag, Zeros.from_loader)
 
 
 class Pointer(yaml.YAMLObject):
-    yaml_tag = '!pointer'
+    yaml_tag = '!ptr'
 
     def __init__(self, data, offset=0):
         self.data = data
