@@ -65,6 +65,8 @@ yaml.add_constructor(Zeros.yaml_tag, Zeros.from_yaml_loader)
 class Pointer():
     """
     Represents a pointer into an array.
+    >>> yaml.load('!ptr value')
+    Pointer('value')
     >>> yaml.dump(Pointer("value"))
     "!ptr 'value'\\n"
     """
