@@ -59,12 +59,23 @@ yaml.add_constructor(Zeros.yaml_tag, Zeros.from_loader)
 
 
 
-class Pointer(yaml.YAMLObject):
+class Pointer():
+    """
+    Represents a pointer into an array.
+    >>> yaml.dump(Pointer("value"))
+    "!ptr 'value'\\n"
+    """
     yaml_tag = '!ptr'
 
     def __init__(self, data, offset=0):
         self.data = data
         self.offset = offset
+
+    @staticmethod
+    def yaml_representer(dumper, data):
+        return dumper.represent_scalar(Pointer.yaml_tag, data.data)
+
+yaml.add_representer(Pointer, Pointer.yaml_representer)
 
 
 def transform(yaml):
