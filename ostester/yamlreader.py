@@ -37,8 +37,12 @@ class Zeros(collections.abc.Sequence):
         self.len = len
 
     @staticmethod
-    def from_loader(loader, node):
+    def from_yaml_loader(loader, node):
         return Zeros(int(node.value))
+
+    @staticmethod
+    def yaml_representer(dumper, data):
+        return dumper.represent_scalar(Zeros.yaml_tag, str(data.len))
 
     def __getitem__(self, key):
         if isinstance(key, slice):
@@ -53,9 +57,8 @@ class Zeros(collections.abc.Sequence):
     def __repr__(self):
         return 'Zeros({})'.format(repr(self.len))
 
-yaml.add_representer(Zeros, lambda dumper, data:
-    dumper.represent_scalar(Zeros.yaml_tag, str(data.len)))
-yaml.add_constructor(Zeros.yaml_tag, Zeros.from_loader)
+yaml.add_representer(Zeros, Zeros.yaml_representer)
+yaml.add_constructor(Zeros.yaml_tag, Zeros.from_yaml_loader)
 
 
 
