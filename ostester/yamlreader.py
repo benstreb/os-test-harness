@@ -77,10 +77,18 @@ class Pointer():
         self.offset = offset
 
     @staticmethod
+    def from_yaml_loader(loader, node):
+        return Pointer(node.value)
+
+    @staticmethod
     def yaml_representer(dumper, data):
         return dumper.represent_scalar(Pointer.yaml_tag, data.data)
 
+    def __repr__(self):
+        return 'Pointer({})'.format(repr(self.data))
+
 yaml.add_representer(Pointer, Pointer.yaml_representer)
+yaml.add_constructor(Pointer.yaml_tag, Pointer.from_yaml_loader)
 
 
 def transform(yaml):
