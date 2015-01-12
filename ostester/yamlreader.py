@@ -10,10 +10,6 @@ def parse(file):
     return yaml.safe_load(file)
 
 
-def parse_from_string(string):
-    return parse(StringIO(string))
-
-
 class Zeros(collections.abc.Sequence):
     """
     Represents a zeroed region of memory in C
