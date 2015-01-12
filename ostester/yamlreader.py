@@ -71,6 +71,8 @@ class Pointer():
     Pointer('array', offset=3)
     >>> yaml.dump(Pointer("value"))
     "!ptr 'value'\\n"
+    >>> yaml.dump(Pointer("array", 2))
+    "!ptr 'array+2'\\n"
     """
     yaml_tag = '!ptr'
 
