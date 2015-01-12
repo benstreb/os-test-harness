@@ -87,7 +87,12 @@ class Pointer():
 
     @staticmethod
     def yaml_representer(dumper, data):
-        return dumper.represent_scalar(Pointer.yaml_tag, data.data)
+        if not data.offset:
+            format_str = '{}'
+        else:
+            format_str = '{}+{}'
+        return dumper.represent_scalar(
+            Pointer.yaml_tag, format_str.format(data.data, data.offset))
 
     def __repr__(self):
         if not self.offset:
