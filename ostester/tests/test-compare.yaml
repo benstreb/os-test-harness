@@ -1,0 +1,12 @@
+- header: compare.h
+
+- function: compare
+  tests:
+    - args: ['a', ['a', 'b']]
+      less_than: 0
+    - args: [0, !zeros(3)]
+      equals: 0
+    - data:
+        array: ['c', 'b', 'a']
+      args: ['b', !ptr region+1]
+      greater_than: 0

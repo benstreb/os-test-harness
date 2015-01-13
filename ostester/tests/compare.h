@@ -1,0 +1,1 @@
+int compare(char, char*);
