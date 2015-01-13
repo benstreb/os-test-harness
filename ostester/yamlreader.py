@@ -10,51 +10,51 @@ def parse(file):
     return yaml.safe_load(file)
 
 
-class Zeros(collections.abc.Sequence):
+class Zeroed(collections.abc.Sequence):
     """
     Represents a zeroed region of memory in C
-    >>> yaml.load("!zeros 5")
-    Zeros(5)
-    >>> yaml.dump(Zeros(3))
-    "!zeros '3'\\n"
-    >>> list(Zeros(7))
+    >>> yaml.load("!zeroed 5")
+    Zeroed(5)
+    >>> yaml.dump(Zeroed(3))
+    "!zeroed '3'\\n"
+    >>> list(Zeroed(7))
     [0, 0, 0, 0, 0, 0, 0]
-    >>> Zeros(3)[-3]
+    >>> Zeroed(3)[-3]
     0
-    >>> Zeros(3)[-2]
+    >>> Zeroed(3)[-2]
     0
-    >>> Zeros(4)[1:3]
+    >>> Zeroed(4)[1:3]
     [0, 0]
     """
 
-    yaml_tag='!zeros'
+    yaml_tag='!zeroed'
 
     def __init__(self, len):
         self.len = len
 
     @staticmethod
     def from_yaml_loader(loader, node):
-        return Zeros(int(node.value))
+        return Zeroed(int(node.value))
 
     @staticmethod
     def yaml_representer(dumper, data):
-        return dumper.represent_scalar(Zeros.yaml_tag, str(data.len))
+        return dumper.represent_scalar(Zeroed.yaml_tag, str(data.len))
 
     def __getitem__(self, key):
         if isinstance(key, slice):
             return [0 for key in range(*key.indices(self.len))]
         elif key > self.len-1 or key < -self.len:
-            raise IndexError('Zeros index out of range')
+            raise IndexError('Zeroed index out of range')
         return 0
 
     def __len__(self):
         return self.len
 
     def __repr__(self):
-        return 'Zeros({})'.format(repr(self.len))
+        return 'Zeroed({})'.format(repr(self.len))
 
-yaml.add_representer(Zeros, Zeros.yaml_representer)
-yaml.add_constructor(Zeros.yaml_tag, Zeros.from_yaml_loader)
+yaml.add_representer(Zeroed, Zeroed.yaml_representer)
+yaml.add_constructor(Zeroed.yaml_tag, Zeroed.from_yaml_loader)
 
 
 
