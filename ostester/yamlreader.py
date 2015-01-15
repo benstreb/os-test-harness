@@ -1,3 +1,9 @@
+"""
+Reads in a yaml file representing a set of tests
+>>> with open("ostester/tests/test-compare.yaml", 'r') as f:
+...     yml = parse(f)
+"""
+
 import collections.abc
 from io import StringIO
 
