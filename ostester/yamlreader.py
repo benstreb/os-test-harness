@@ -5,6 +5,7 @@ Reads in a yaml file representing a set of tests
 """
 
 import collections.abc
+from abc import ABCMeta
 from io import StringIO
 
 import yaml
@@ -16,10 +17,13 @@ def parse(file):
     return yaml.safe_load(file)
 
 
-class Zeroed(collections.abc.Sequence):
+class ABCYAMLMeta(ABCMeta, type(yaml.YAMLObject)): pass
+
+
+class Zeroed(collections.abc.Sequence, yaml.YAMLObject, metaclass=ABCYAMLMeta):
     """
     Represents a zeroed region of memory in C
-    >>> yaml.load("!zeroed 5")
+    >>> yaml.safe_load("!zeroed 5")
     Zeroed(5)
     >>> yaml.dump(Zeroed(3))
     "!zeroed '3'\\n"
@@ -33,17 +37,18 @@ class Zeroed(collections.abc.Sequence):
     [0, 0]
     """
 
+    yaml_loader = yaml.SafeLoader
     yaml_tag='!zeroed'
 
     def __init__(self, len):
         self.len = len
 
-    @staticmethod
-    def from_yaml_loader(loader, node):
+    @classmethod
+    def from_yaml(cls, loader, node):
         return Zeroed(int(node.value))
 
-    @staticmethod
-    def yaml_representer(dumper, data):
+    @classmethod
+    def to_yaml(cls, dumper, data):
         return dumper.represent_scalar(Zeroed.yaml_tag, str(data.len))
 
     def __getitem__(self, key):
@@ -59,36 +64,33 @@ class Zeroed(collections.abc.Sequence):
     def __repr__(self):
         return 'Zeroed({})'.format(repr(self.len))
 
-yaml.add_representer(Zeroed, Zeroed.yaml_representer)
-yaml.add_constructor(Zeroed.yaml_tag, Zeroed.from_yaml_loader)
 
-
-
-class Pointer():
+class Pointer(yaml.YAMLObject):
     """
     Represents a pointer into an array.
-    >>> yaml.load('!ptr value')
+    >>> yaml.safe_load('!ptr value')
     Pointer('value')
-    >>> yaml.load('!ptr array+3')
+    >>> yaml.safe_load('!ptr array+3')
     Pointer('array', offset=3)
     >>> yaml.dump(Pointer("value"))
     "!ptr 'value'\\n"
     >>> yaml.dump(Pointer("array", 2))
     "!ptr 'array+2'\\n"
     """
+    yaml_loader = yaml.SafeLoader
     yaml_tag = '!ptr'
 
     def __init__(self, data, offset=0):
         self.data = data
         self.offset = int(offset)
 
-    @staticmethod
-    def from_yaml_loader(loader, node):
+    @classmethod
+    def from_yaml(cls, loader, node):
         args = map(str.strip, node.value.split('+'))
         return Pointer(*args)
 
-    @staticmethod
-    def yaml_representer(dumper, data):
+    @classmethod
+    def to_yaml(cls, dumper, data):
         if not data.offset:
             format_str = '{}'
         else:
@@ -102,9 +104,6 @@ class Pointer():
         else:
             format_str = 'Pointer({}, offset={})'
         return format_str.format(repr(self.data), self.offset)
-
-yaml.add_representer(Pointer, Pointer.yaml_representer)
-yaml.add_constructor(Pointer.yaml_tag, Pointer.from_yaml_loader)
 
 
 def transform(yaml):
