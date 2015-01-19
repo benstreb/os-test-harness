@@ -1,6 +1,6 @@
 #include <stdint.h>
-{% for test_header in test_headers %}
-#include "test-compare.c"
+{% for test_include in test_includes %}
+#include "{{ test_include }}"
 {% endfor %}
 
 
