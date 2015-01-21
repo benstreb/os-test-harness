@@ -1,6 +1,8 @@
 from jinja2 import Environment, PackageLoader
 
-env = Environment(loader=PackageLoader('ostester', 'templates'))
+env = Environment(loader=PackageLoader('ostester', 'templates'),
+                  trim_blocks=True,
+                  lstrip_blocks=True)
 
 
 def header_to_function_name(header):
