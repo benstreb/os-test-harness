@@ -1,3 +1,5 @@
+import re
+
 from jinja2 import Environment, PackageLoader
 
 env = Environment(loader=PackageLoader('ostester', 'templates'),
@@ -14,7 +16,10 @@ def header_to_function_name(header):
     >>> header_to_function_name('include/header.h')
     test_include_header
     """
-    pass
+    word = '[a-zA-Z0-9_]+'
+    header_regex = '({word}(/{word})*).h'.format(word=word)
+    match = re.fullmatch(header_regex, header)
+    return 'test_' + match.group(1).replace('/', '_')
 
 
 def render_main(tested_headers):
