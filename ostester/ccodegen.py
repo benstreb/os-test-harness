@@ -19,6 +19,10 @@ def header_to_function_name(header):
     Traceback (most recent call last):
         ...
     ValueError: invalid header name: 'compare'
+    >>> header_to_function_name('include.h/header.h')
+    Traceback (most recent call last):
+        ...
+    ValueError: invalid header name: 'include.h/header.h'
     """
     word = '[a-zA-Z0-9_]+'
     header_regex = '({word}(/{word})*).h'.format(word=word)
