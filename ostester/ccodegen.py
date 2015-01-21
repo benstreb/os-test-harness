@@ -6,6 +6,14 @@ env = Environment(loader=PackageLoader('ostester', 'templates'),
 
 
 def header_to_function_name(header):
+    """
+    Returns the name of the entry point of a test suite given the header
+    containing the suite
+    >>> header_to_function_name('compare.h')
+    test_compare
+    >>> header_to_function_name('include/header.h')
+    test_include_header
+    """
     pass
 
 
