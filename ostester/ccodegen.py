@@ -12,9 +12,9 @@ def header_to_function_name(header):
     Returns the name of the entry point of a test suite given the header
     containing the suite
     >>> header_to_function_name('compare.h')
-    test_compare
+    'test_compare'
     >>> header_to_function_name('include/header.h')
-    test_include_header
+    'test_include_header'
     """
     word = '[a-zA-Z0-9_]+'
     header_regex = '({word}(/{word})*).h'.format(word=word)
