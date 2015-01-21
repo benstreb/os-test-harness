@@ -23,6 +23,8 @@ def header_to_function_name(header):
     word = '[a-zA-Z0-9_]+'
     header_regex = '({word}(/{word})*).h'.format(word=word)
     match = re.fullmatch(header_regex, header)
+    if match is None:
+        raise ValueError("invalid header name: '{}'".format(header))
     return 'test_' + match.group(1).replace('/', '_')
 
 
