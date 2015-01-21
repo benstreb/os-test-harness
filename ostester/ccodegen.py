@@ -19,4 +19,5 @@ def render_main(tested_headers):
     """
     template = env.get_template('main.jinja2.c')
     tests = (header_to_function_name(h) for h in tested_headers)
-    return template.render(tested_headers, tests)
+    return template.render(test_includes=tested_headers,
+                           test_function_names=tests)
