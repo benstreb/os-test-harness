@@ -7,8 +7,8 @@
 uint32_t test_main(void)
 {
     uint32_t success = 0;
-    {% for test_function_name in test_function_names %}
-    success = {{ test_function_name }}();
+    {% for test_header_name in test_header_names %}
+    success = {{ test_header_name }}();
     if (success != 0)
     {
         return success;
