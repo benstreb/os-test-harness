@@ -12,9 +12,9 @@ def header_to_function_name(header):
     Returns the name of the entry point of a test suite given the header
     containing the suite
     >>> header_to_function_name('compare.h')
-    'test_compare'
+    'test_compare_h'
     >>> header_to_function_name('include/header.h')
-    'test_include_header'
+    'test_include_header_h'
     >>> header_to_function_name('compare')
     Traceback (most recent call last):
         ...
@@ -29,7 +29,7 @@ def header_to_function_name(header):
     match = re.fullmatch(header_regex, header)
     if match is None:
         raise ValueError("invalid header name: '{}'".format(header))
-    return 'test_' + match.group(1).replace('/', '_')
+    return 'test_{}_h'.format(match.group(1).replace('/', '_'))
 
 
 def render_main(tested_headers):
