@@ -5,7 +5,7 @@
 uint32_t test_main(void)
 {
     uint32_t success = 0;
-    success = test_compare();
+    success = test_compare_h();
     if (success != 0)
     {
         return success;

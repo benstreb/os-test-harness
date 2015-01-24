@@ -1,6 +1,17 @@
 #include <stdint.h>
 #include "compare.h"
 
+uint32_t test_compare_h()
+{
+    uint32_t success = 0;
+    success = test_compare();
+    if (success != 0)
+    {
+        return success;
+    }
+    return success;
+}
+
 uint32_t test_compare()
 {
     char array0[] = {'a', 'b'};
