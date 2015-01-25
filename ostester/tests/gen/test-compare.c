@@ -21,6 +21,7 @@ uint32_t test_compare()
     {
         return 3;
     }
+    return 0;
 }
 
 uint32_t test_compare_h()
