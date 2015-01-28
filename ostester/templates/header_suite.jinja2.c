@@ -1,4 +1,5 @@
 {% from 'test_case.jinja2.c' import test_case %}
+{% from 'suite.jinja2.c' import suite %}
 #include <stdint.h>
 #include "compare.h"
 
@@ -10,15 +11,4 @@ uint32_t {{ function_name }}()
     return 0;
 }
 
-uint32_t test_compare_h()
-{
-    uint32_t success = 0;
-    {% for test_function_name in test_function_names %}
-    success = {{ test_function_name }}();
-    if (success != 0)
-    {
-        return success;
-    }
-    {% endfor %}
-    return success;
-}
+{% suite(test_header_name, test_function_names %}
