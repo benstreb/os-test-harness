@@ -4,4 +4,4 @@
 #include "{{ test_include }}"
 {% endfor %}
 
-{{ suite('test_main', test_header_names }}
+{{ suite('test_main', test_includes|map('header_to_function_name')) }}

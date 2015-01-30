@@ -32,6 +32,9 @@ def header_to_function_name(header):
     return 'test_{}_h'.format(match.group(1).replace('/', '_'))
 
 
+env.filters['header_to_function_name'] = header_to_function_name
+
+
 def render_main(tested_headers):
     """
     Returns a string containing the entry point for the generated tests
@@ -43,6 +46,4 @@ def render_main(tested_headers):
     ...     print(main, file=main_file)
     """
     template = env.get_template('main.jinja2.c')
-    tests = (header_to_function_name(h) for h in tested_headers)
-    return template.render(test_includes=tested_headers,
-                           test_header_names=tests)
+    return template.render(test_includes=tested_headers)

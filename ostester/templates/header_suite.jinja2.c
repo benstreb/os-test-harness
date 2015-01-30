@@ -3,12 +3,13 @@
 #include <stdint.h>
 #include "compare.h"
 
-uint32_t {{ function_name }}()
+{% for function in functions %}
+uint32_t {{ function.name }}()
 {
-    {% for test in tests %}
+    {% for test in function.tests %}
     {% test_case(test) %}
     {% endfor %}
     return 0;
 }
 
-{% suite(test_header_name, test_function_names %}
+{% suite(test_header_name, functions|map(attribute='name' %}
