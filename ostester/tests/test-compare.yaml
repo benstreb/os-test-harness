@@ -1,6 +1,7 @@
 - header: compare.h
 
 - function: compare
+  type: char, char* -> int
   tests:
     - args: ['a', ['a', 'b']]
       less_than: 0
