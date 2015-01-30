@@ -1,4 +1,4 @@
-{% macro test_case(test) -%}
+{% macro test_case(test) %}
 {% for declaration in test.declarations %}
 {{ declaration.c_code() }}
 {% endfor %}
@@ -9,4 +9,4 @@ if (!({{ test.comparison.c_code(result) }}))
 {
     return {{ test.number }};
 }
-{%- endmacro %}
+{% endmacro %}
