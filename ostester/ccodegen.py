@@ -19,4 +19,4 @@ def render_main(tested_headers):
     ...     print(main, file=main_file)
     """
     template = env.get_template('main.jinja2.c')
-    return template.render(test_includes=tested_headers)
+    return template.render(test_headers=tested_headers)
