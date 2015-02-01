@@ -106,6 +106,16 @@ class Pointer(yaml.YAMLObject):
         return format_str.format(repr(self.data), self.offset)
 
 
+class Signature(yaml.YAMLObject):
+    """Represents the signature of the function under test.
+    >>> yaml.safe_load('int -> int')
+    Signature(inputs=['int'], output='int')
+    >>> yaml.dump(Signature(inputs=['int'], output='int'))
+    '!signature int -> int
+    """
+    pass
+
+
 def transform(yaml):
     pass
 
