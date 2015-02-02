@@ -111,9 +111,29 @@ class Signature(yaml.YAMLObject):
     >>> yaml.safe_load('int -> int')
     Signature(inputs=['int'], output='int')
     >>> yaml.dump(Signature(inputs=['int'], output='int'))
-    '!signature int -> int
+    "!signature 'int -> int'\\n"
     """
-    pass
+    yaml_loader = yaml.SafeLoader
+    yaml_tag='!signature'
+
+    def __init__(self, *, inputs, output):
+        self.inputs = inputs
+        self.output = output
+
+    @classmethod
+    def from_yaml(cls, loader, node):
+        inputs, output = node.value.split('->')
+        return Signature(
+            inputs=[t.strip() for t in inputs.split(',')],
+            output=output.strip(),
+        )
+
+    @classmethod
+    def to_yaml(cls, dumper, data):
+        return dumper.represent_scalar(
+            Signature.yaml_tag,
+            '{} -> {}'.format(','.join(data.inputs), data.output)
+        )
 
 
 def transform(yaml):
