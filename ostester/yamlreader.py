@@ -135,6 +135,12 @@ class Signature(yaml.YAMLObject):
             '{} -> {}'.format(','.join(data.inputs), data.output)
         )
 
+    def __repr__(self):
+        return 'Signature(inputs={}, output={})'.format(
+            repr(self.inputs),
+            repr(self.output),
+        )
+
 
 def transform(yaml):
     pass
