@@ -7,6 +7,7 @@ Reads in a yaml file representing a set of tests
 import collections.abc
 from abc import ABCMeta
 from io import StringIO
+import re
 
 import yaml
 
@@ -115,6 +116,7 @@ class Signature(yaml.YAMLObject):
     """
     yaml_loader = yaml.SafeLoader
     yaml_tag='!signature'
+    yaml_resolver = re.compile(r'.+->.+')
 
     def __init__(self, *, inputs, output):
         self.inputs = inputs
@@ -140,6 +142,8 @@ class Signature(yaml.YAMLObject):
             repr(self.inputs),
             repr(self.output),
         )
+
+yaml.SafeLoader.add_implicit_resolver('!signature', Signature.yaml_resolver, None)
 
 
 def transform(yaml):
