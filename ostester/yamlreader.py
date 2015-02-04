@@ -111,8 +111,12 @@ class Signature(yaml.YAMLObject):
     """Represents the signature of the function under test.
     >>> yaml.safe_load('int -> int')
     Signature(inputs=['int'], output='int')
+    >>> yaml.safe_load('int, char* -> char*')
+    Signature(inputs=['int', 'char*'], output='char*')
     >>> yaml.dump(Signature(inputs=['int'], output='int'))
     "!signature 'int -> int'\\n"
+    >>> yaml.dump(Signature(inputs=['int', 'char*'], output='char*'))
+    "!signature 'int, char* -> char*'\\n"
     """
     yaml_loader = yaml.SafeLoader
     yaml_tag='!signature'
@@ -134,7 +138,7 @@ class Signature(yaml.YAMLObject):
     def to_yaml(cls, dumper, data):
         return dumper.represent_scalar(
             Signature.yaml_tag,
-            '{} -> {}'.format(','.join(data.inputs), data.output)
+            '{} -> {}'.format(', '.join(data.inputs), data.output)
         )
 
     def __repr__(self):
