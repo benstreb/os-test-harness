@@ -150,6 +150,15 @@ class Signature(yaml.YAMLObject):
 yaml.SafeLoader.add_implicit_resolver('!signature', Signature.yaml_resolver, None)
 
 
+class CType:
+    """
+    Represents en expression type in C.
+    >>> t = CType("int*[3]")
+    >>> t.declare("values")
+    'int *values[3]'
+    """
+
+
 def transform(yaml):
     pass
 
