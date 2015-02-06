@@ -157,6 +157,11 @@ class CType:
     >>> t.declare("values")
     'int *values[3]'
     """
+    type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
+
+    def __init__(self, type_decl):
+        base_type, stars, arrays, _ = self.type_spec.match(
+            type_decl).groups()
 
 
 def transform(yaml):
