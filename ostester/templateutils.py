@@ -26,6 +26,7 @@ def header_to_function_name(header):
     return 'test_{}_h'.format(match.group(1).replace('/', '_'))
 
 
+_num_names = 0
 def new_name():
     """
     Returns a new legal identifier in C each time it's called
@@ -35,3 +36,6 @@ def new_name():
     >>> name1 != name2
     True
     """
+    global _num_names
+    _num_names += 1
+    return '_id_{}'.format(_num_names)
