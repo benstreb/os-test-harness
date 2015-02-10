@@ -24,3 +24,14 @@ def header_to_function_name(header):
     if match is None:
         raise ValueError("invalid header name: '{}'".format(header))
     return 'test_{}_h'.format(match.group(1).replace('/', '_'))
+
+
+def new_name():
+    """
+    Returns a new legal identifier in C each time it's called
+    Note: Not thread-safe in its current incarnation
+    >>> name1 = new_name()
+    >>> name2 = new_name()
+    >>> name1 != name2
+    True
+    """
