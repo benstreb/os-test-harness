@@ -2,7 +2,7 @@
 {% for declaration in test.declarations %}
 {{ declaration.c_code() }};
 {% endfor %}
-{% result = newname() %}
+{% result = new_name() %}
 {% fn = test.function %}
 {{ fn.return_type.c_code(result) }} = {{ fn.c_code(args) }};
 if (!({{ test.comparison.c_code(result) }}))
