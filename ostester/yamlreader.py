@@ -154,6 +154,8 @@ class CType:
     """
     Represents en expression type in C.
     >>> t = CType("int*[3]")
+    >>> t
+    int*[3]
     >>> t.declare("values")
     'int *values[3]'
     """
