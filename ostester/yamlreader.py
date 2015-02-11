@@ -130,8 +130,8 @@ class Signature(yaml.YAMLObject):
     def from_yaml(cls, loader, node):
         inputs, output = node.value.split('->')
         return Signature(
-            inputs=[t.strip() for t in inputs.split(',')],
-            output=output.strip(),
+            inputs=[CType(t.strip()) for t in inputs.split(',')],
+            output=CType(output.strip()),
         )
 
     @classmethod
