@@ -173,6 +173,13 @@ class CType:
             self.arrays,
         )
 
+    def __repr__(self):
+        return '{}{}{}'.format(
+            self.base_type,
+            self.stars,
+            self.arrays,
+        )
+
 
 def transform(yaml):
     pass
