@@ -7,9 +7,10 @@
 uint32_t {{ function.name }}()
 {
     {% for test in function.tests %}
-    {% test_case(test) %}
+    {{ test_case(test) }}
     {% endfor %}
     return 0;
 }
+{% endfor %}
 
-{% suite(test_header_name, functions|map(attribute='name' %}
+{{ suite(test_header_name, functions|map(attribute='name')) }}
