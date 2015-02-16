@@ -29,13 +29,13 @@ def render_header_suite(header, functions):
     >>> import os
     >>> from ostester.yamlreader import Signature
     >>> header = 'compare.h'
-    >>> functions = {
+    >>> functions = [{
     ...     'function': 'compare',
     ...     'type': Signature(inputs=['char', 'char*'], output='int'),
     ...     'tests': [
     ...         {'args': ['a', ['a', 'b']],
     ...          'less_than': 0}],
-    ...     }
+    ...     }]
     >>> suite = render_header_suite(header, functions)
     >>> assert(suite)
     >>> with open(os.devnull, 'w') as suite_file:
