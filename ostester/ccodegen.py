@@ -30,7 +30,7 @@ def render_header_suite(header, functions):
     >>> from ostester.yamlreader import Signature
     >>> header = 'compare.h'
     >>> functions = [{
-    ...     'function': 'compare',
+    ...     'name': 'compare',
     ...     'type': Signature(inputs=['char', 'char*'], output='int'),
     ...     'tests': [
     ...         {'args': ['a', ['a', 'b']],
