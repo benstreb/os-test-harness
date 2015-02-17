@@ -1,9 +1,8 @@
-{% macro test_case(test) %}
+{% macro test_case(fn, test) %}
 {% for declaration in test.declarations %}
 {{ declaration.c_code() }};
 {% endfor %}
 {% set result = new_name() %}
-{% set fn = test.function %}
 {{ fn.type.output.c_code(result) }} = {{ fn.c_code(args) }};
 if (!({{ test.comparison.c_code(result) }}))
 {
