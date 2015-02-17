@@ -4,7 +4,7 @@
 {% endfor %}
 {% set result = new_name() %}
 {% set fn = test.function %}
-{{ fn.return_type.c_code(result) }} = {{ fn.c_code(args) }};
+{{ fn.type.output.c_code(result) }} = {{ fn.c_code(args) }};
 if (!({{ test.comparison.c_code(result) }}))
 {
     return {{ test.number }};
