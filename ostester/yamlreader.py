@@ -128,15 +128,15 @@ class Signature(yaml.YAMLObject):
     yaml_resolver = re.compile(r'.+->.+')
 
     def __init__(self, *, inputs, output):
-        self.inputs = inputs
-        self.output = output
+        self.inputs = list(map(CType, inputs))
+        self.output = CType(output)
 
     @classmethod
     def from_yaml(cls, loader, node):
         inputs, output = node.value.split('->')
         return Signature(
-            inputs=[CType(t.strip()) for t in inputs.split(',')],
-            output=CType(output.strip()),
+            inputs=[t.strip() for t in inputs.split(',')],
+            output=output.strip(),
         )
 
     @classmethod
