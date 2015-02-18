@@ -143,7 +143,10 @@ class Signature(yaml.YAMLObject):
     def to_yaml(cls, dumper, data):
         return dumper.represent_scalar(
             Signature.yaml_tag,
-            '{} -> {}'.format(', '.join(data.inputs), data.output)
+            '{} -> {}'.format(
+                ', '.join(map(str, data.inputs)),
+                data.output,
+            )
         )
 
     def __repr__(self):
