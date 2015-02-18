@@ -117,6 +117,11 @@ class Signature(yaml.YAMLObject):
     "!signature 'int -> int'\\n"
     >>> yaml.dump(Signature(inputs=['int', 'char*'], output='char*'))
     "!signature 'int, char* -> char*'\\n"
+    >>> sig = Signature(inputs=['int', 'char*'], output='char*')
+    >>> all(type(t) == CType for t in sig.inputs)
+    True
+    >>> type(sig.output) == CType
+    True
     """
     yaml_loader = yaml.SafeLoader
     yaml_tag='!signature'
