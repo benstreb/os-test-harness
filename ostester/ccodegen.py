@@ -1,6 +1,6 @@
 from jinja2 import Environment, PackageLoader
 
-import utils
+from . import utils
 
 env = Environment(loader=PackageLoader('ostester', 'templates'),
                   trim_blocks=True,
