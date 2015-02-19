@@ -3,7 +3,7 @@
 {{ declaration.c_code() }};
 {% endfor %}
 {% set result = new_name() %}
-{{ fn.type.output.c_code(result) }} = {{ fn.c_code(args) }};
+{{ fn.type.output.declare(result) }} = {{ fn.c_code(args) }};
 if (!({{ test.comparison.c_code(result) }}))
 {
     return {{ test.number }};
