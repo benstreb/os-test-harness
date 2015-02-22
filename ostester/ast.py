@@ -1,4 +1,7 @@
 from collections import namedtuple
+from functools import partial
+from operator import eq, lt, gt
+
 
 def FileMetadata(header, **kwargs):
     return {"header": header}
@@ -20,3 +23,9 @@ class BinOp(namedtuple('BinOp', ('f', 'arg'))):
     __slots__ = ()
     def compare(self, arg):
         return '{} {} {}'.format(arg, f, self.arg)
+
+
+mappings = {"equals": partial(BinOp, eq),
+            "less_than": partial(BinOp, lt),
+            "greater_than": partial(BinOp, gt),
+           }
