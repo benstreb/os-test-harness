@@ -25,7 +25,7 @@ class BinOp(namedtuple('BinOp', ('f', 'arg'))):
         return '{} {} {}'.format(arg, f, self.arg)
 
 
-mappings = {"equals": partial(BinOp, eq),
-            "less_than": partial(BinOp, lt),
-            "greater_than": partial(BinOp, gt),
-           }
+comparisons = {"equals": partial(BinOp, eq),
+               "less_than": partial(BinOp, lt),
+               "greater_than": partial(BinOp, gt),
+              }
