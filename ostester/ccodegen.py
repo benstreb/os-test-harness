@@ -28,13 +28,14 @@ def render_header_suite(header, functions):
     Returns a string containing the entry point for the generated tests
     >>> import os
     >>> from ostester.yamlreader import Signature
+    >>> from ostester.ast import comparisons
     >>> header = 'compare.h'
     >>> functions = [{
     ...     'name': 'compare',
     ...     'type': Signature(inputs=['char', 'char*'], output='int'),
     ...     'tests': [
     ...         {'args': ['a', ['a', 'b']],
-    ...          'less_than': 0}],
+    ...          'comparison': comparisons['less_than'](0)}],
     ...     }]
     >>> suite = render_header_suite(header, functions)
     >>> assert(suite)
