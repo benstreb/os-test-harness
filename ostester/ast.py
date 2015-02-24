@@ -21,7 +21,7 @@ def TestCase(declarations, test_arguments, comparison):
 
 class BinOp(namedtuple('BinOp', ('f', 'arg'))):
     __slots__ = ()
-    def compare(self, arg):
+    def compare_with(self, arg):
         return '{} {} {}'.format(arg, f, self.arg)
 
 
