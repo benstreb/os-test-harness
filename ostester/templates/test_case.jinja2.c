@@ -4,7 +4,7 @@
 {% endfor %}
 {% set result = new_name() %}
 {{ fn.type.output.declare(result) }} = {{ name }}({{ test.args|join(', ') }});
-if (!({{ test.comparison.c_code(result) }}))
+if (!({{ test.comparison.compare_with(result) }}))
 {
     return {{ test.number }};
 }
