@@ -22,7 +22,7 @@ def TestCase(declarations, test_arguments, comparison):
 class BinOp(namedtuple('BinOp', ('f', 'arg'))):
     __slots__ = ()
     def compare_with(self, arg):
-        return '{} {} {}'.format(arg, f, self.arg)
+        return '{} {} {}'.format(arg, self.f, self.arg)
 
 
 comparisons = {"equals": partial(BinOp, eq),
