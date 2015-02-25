@@ -8,7 +8,3 @@ def load_tests(loader, tests, ignore):
     tests.addTests(DocTestSuite(
         ccodegen, optionflags=REPORT_ONLY_FIRST_FAILURE))
     return tests
-
-
-if __name__ == "__main__":
-    unittest.main(package='ostester')
