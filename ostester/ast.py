@@ -1,6 +1,5 @@
 from collections import namedtuple
 from functools import partial
-from operator import eq, lt, gt
 
 
 def FileMetadata(header, **kwargs):
@@ -25,7 +24,7 @@ class BinOp(namedtuple('BinOp', ('f', 'arg'))):
         return '{} {} {}'.format(arg, self.f, self.arg)
 
 
-comparisons = {"equals": partial(BinOp, eq),
-               "less_than": partial(BinOp, lt),
-               "greater_than": partial(BinOp, gt),
+comparisons = {"equals": partial(BinOp, '=='),
+               "less_than": partial(BinOp, '<'),
+               "greater_than": partial(BinOp, '>'),
               }
