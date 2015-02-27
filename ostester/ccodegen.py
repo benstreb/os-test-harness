@@ -34,7 +34,8 @@ def render_header_suite(header, functions):
     ...     'type': Signature(inputs=['char', 'char*'], output='int'),
     ...     'tests': [
     ...         {'args': ['a', ['a', 'b']],
-    ...          'comparison': comparisons['less_than'](0)}],
+    ...          'comparison': comparisons['less_than'](0),
+    ...          'number': 1}],
     ...     }]
     >>> suite = render_header_suite(header, functions)
     >>> assert(suite)
