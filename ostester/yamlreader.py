@@ -119,9 +119,9 @@ class Signature(yaml.YAMLObject):
     >>> yaml.dump(Signature(inputs=['int', 'char*'], output='char*'))
     "!signature 'int, char* -> char*'\\n"
     >>> sig = Signature(inputs=['int', 'char*'], output='char*')
-    >>> all(type(t) == CType for t in sig.inputs)
+    >>> all(isinstance(t, CType) for t in sig.inputs)
     True
-    >>> type(sig.output) == CType
+    >>> isinstance(sig.output, CType)
     True
     """
     yaml_loader = yaml.SafeLoader
