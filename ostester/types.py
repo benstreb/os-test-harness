@@ -1,7 +1,11 @@
 import re
 
 
-class CType:
+def CType(type_decl):
+    return _CType(type_decl)
+
+
+class _CType:
     """
     Represents en expression type in C.
     >>> t = CType("int*[3]")
