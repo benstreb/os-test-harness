@@ -1,14 +1,14 @@
 import re
 
 
-def CType(type_decl):
+def c_type(type_decl):
     return _CType(type_decl)
 
 
 class _CType:
     """
     Represents en expression type in C.
-    >>> t = CType("int*[3]")
+    >>> t = _CType("int*[3]")
     >>> t
     int*[3]
     >>> t.declare("values")

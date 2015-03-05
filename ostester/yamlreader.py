@@ -12,7 +12,7 @@ import re
 import yaml
 
 import ast
-from .types import CType
+from .types import c_type
 
 
 def parse(file):
@@ -119,9 +119,10 @@ class Signature(yaml.YAMLObject):
     >>> yaml.dump(Signature(inputs=['int', 'char*'], output='char*'))
     "!signature 'int, char* -> char*'\\n"
     >>> sig = Signature(inputs=['int', 'char*'], output='char*')
-    >>> all(isinstance(t, CType) for t in sig.inputs)
+    >>> from .types import _CType
+    >>> all(isinstance(t, _CType) for t in sig.inputs)
     True
-    >>> isinstance(sig.output, CType)
+    >>> isinstance(sig.output, _CType)
     True
     """
     yaml_loader = yaml.SafeLoader
@@ -129,8 +130,8 @@ class Signature(yaml.YAMLObject):
     yaml_resolver = re.compile(r'.+->.+')
 
     def __init__(self, *, inputs, output):
-        self.inputs = list(map(CType, inputs))
-        self.output = CType(output)
+        self.inputs = list(map(c_type, inputs))
+        self.output = c_type(output)
 
     @classmethod
     def from_yaml(cls, loader, node):
