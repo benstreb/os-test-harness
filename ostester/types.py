@@ -1,14 +1,29 @@
+import abc
 import re
 
 
 def c_type(type_decl):
-    return _CType(type_decl)
+    return _SimpleCType(type_decl)
 
 
-class _CType:
+class _CType(metaclass=abc.ABCMeta):
     """
-    Represents en expression type in C.
-    >>> t = _CType("int*[3]")
+    An ABC representing a type in C. Subclasses need to be able to
+    declare and instantiate variables.
+    """
+    @abc.abstractmethod
+    def declare(self, name):
+        pass
+
+    @abc.abstractmethod
+    def __repr__(self):
+        pass
+
+
+class _SimpleCType(_CType):
+    """
+    Represents a non-composite type in C.
+    >>> t = _SimpleCType("int*[3]")
     >>> t
     int*[3]
     >>> t.declare("values")
