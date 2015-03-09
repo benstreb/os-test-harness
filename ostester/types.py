@@ -23,11 +23,11 @@ class _CType(metaclass=abc.ABCMeta):
 class _SimpleCType(_CType):
     """
     Represents a non-composite type in C.
-    >>> t = _SimpleCType("int*[3]")
+    >>> t = _SimpleCType("int")
     >>> t
-    int*[3]
-    >>> t.initialize("values", '{1, 2, 3}')
-    'int *values[3] = {1, 2, 3}'
+    int
+    >>> t.initialize("value", '1')
+    'int value = 1'
     """
     type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
 
