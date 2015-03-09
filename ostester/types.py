@@ -34,6 +34,8 @@ class _SimpleCType(_CType):
     'int value'
     >>> t.initialize("value", '1')
     'int value = 1'
+    >>> _SimpleCType('char').initialize("value", 'a')
+    "char value = 'a'"
     """
     type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
 
