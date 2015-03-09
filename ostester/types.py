@@ -12,6 +12,10 @@ class _CType(metaclass=abc.ABCMeta):
     declare and instantiate variables.
     """
     @abc.abstractmethod
+    def declare(self, name):
+        pass
+
+    @abc.abstractmethod
     def initialize(self, name, value):
         pass
 
@@ -26,6 +30,8 @@ class _SimpleCType(_CType):
     >>> t = _SimpleCType("int")
     >>> t
     int
+    >>> t.declare("value")
+    'int value'
     >>> t.initialize("value", '1')
     'int value = 1'
     """
@@ -34,6 +40,12 @@ class _SimpleCType(_CType):
     def __init__(self, type_decl):
         self.base_type, self.stars, self.arrays, _ = self.type_spec.match(
             type_decl).groups()
+
+    def declare(self, name):
+        return '{} {}'.format(
+            self.base_type,
+            name,
+        )
 
     def initialize(self, name, value):
         return '{} {}{}{} = {}'.format(
