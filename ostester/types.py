@@ -24,6 +24,12 @@ class _CType(metaclass=abc.ABCMeta):
         pass
 
 
+type_formatters = {
+    'int': str,
+    'char': "'{}'".format,
+}
+
+
 class _SimpleCType(_CType):
     """
     Represents a non-composite type in C.
@@ -55,7 +61,7 @@ class _SimpleCType(_CType):
             self.stars,
             name,
             self.arrays,
-            value,
+            type_formatters[self.base_type](value),
         )
 
     def __repr__(self):
