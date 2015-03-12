@@ -72,3 +72,8 @@ class _SimpleCType(_CType):
         )
 
 
+class _ArrayCType(_CType):
+    """
+    Represents an array in C.
+    >>> t = _ArrayCType("int", 3)
+    """
