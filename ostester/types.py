@@ -77,3 +77,16 @@ class _ArrayCType(_CType):
     Represents an array in C.
     >>> t = _ArrayCType("int", 3)
     """
+
+    def __init__(self, base_type, length):
+        self.base_type = base_type
+        self.length = length
+
+    def declare(self, name):
+        raise NotImplementedError()
+
+    def initialize(self, name, value):
+        raise NotImplementedError()
+
+    def __repr__(self):
+        raise NotImplementedError()
