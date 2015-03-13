@@ -76,6 +76,8 @@ class _ArrayCType(_CType):
     """
     Represents an array in C.
     >>> t = _ArrayCType("int", 3)
+    >>> t.declare('array')
+    int array[3]
     """
 
     def __init__(self, base_type, length):
