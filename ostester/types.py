@@ -77,15 +77,15 @@ class _ArrayCType(_CType):
     Represents an array in C.
     >>> t = _ArrayCType("int", 3)
     >>> t.declare('array')
-    int array[3]
+    'int array[3]'
     """
 
     def __init__(self, base_type, length):
-        self.base_type = base_type
+        self.base_type = c_type(base_type)
         self.length = length
 
     def declare(self, name):
-        raise NotImplementedError()
+        return '{}[{}]'.format(self.base_type.declare(name), self.length)
 
     def initialize(self, name, value):
         raise NotImplementedError()
