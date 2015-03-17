@@ -78,6 +78,8 @@ class _ArrayCType(_CType):
     >>> t = _ArrayCType("int", 3)
     >>> t.declare('array')
     'int array[3]'
+    >>> t.initialize('array', [1, 2, 3])
+    'int array[3] = {1, 2, 3}'
     """
 
     def __init__(self, base_type, length):
@@ -88,7 +90,13 @@ class _ArrayCType(_CType):
         return '{}[{}]'.format(self.base_type.declare(name), self.length)
 
     def initialize(self, name, value):
-        raise NotImplementedError()
+        return '{}[{}] = {{{}}}'.format(
+            self.base_type.declare(name),
+            self.length,
+            ', '.join(
+                self.base_type.literal(v) for v in value
+            )
+        )
 
     def __repr__(self):
         raise NotImplementedError()
