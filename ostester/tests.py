@@ -2,10 +2,7 @@ import unittest
 from doctest import DocTestSuite, REPORT_ONLY_FIRST_FAILURE, ELLIPSIS
 
 def load_tests(loader, tests, ignore):
-    from . import yamlreader
-    from . import ccodegen
-    from . import types
-    from . import typevalues
+    from . import yamlreader, ccodegen, types, typevalues
     tests.addTests(DocTestSuite(yamlreader))
     tests.addTests(DocTestSuite(types))
     tests.addTests(DocTestSuite(
