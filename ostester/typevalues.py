@@ -7,13 +7,15 @@ class TypeValue(metaclass=abc.ABCMeta):
     """
     A value and type combo needed for codegen.
     >>> from . import types
+    >>> TypeValue(1, types.c_type('int'), name='test')
+    TypeValue(value=1, type=int, name='test')
     >>> unnamed = TypeValue(1, types.c_type('int'))
     >>> unnamed
     TypeValue(value=1, type=int, name='...')
     >>> unnamed.name is not None
     True
-    >>> TypeValue(1, types.c_type('int'), name='test')
-    TypeValue(value=1, type=int, name='test')
+    >>> unnamed.initialize()
+    'int ... = 1'
     """
     def __init__(self, value, type, name=None):
         self.value = value
