@@ -1,5 +1,7 @@
 import abc
 
+from .utils import new_name
+
 
 class TypeValue(metaclass=abc.ABCMeta):
     """
@@ -16,7 +18,7 @@ class TypeValue(metaclass=abc.ABCMeta):
     def __init__(self, value, type, name=None):
         self.value = value
         self.type = type
-        self.name = name
+        self.name = name if name is not None else new_name()
 
     def __repr__(self):
         return "TypeValue(value={}, type={}, name='{}')".format(
