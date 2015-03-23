@@ -2,6 +2,16 @@ from collections import namedtuple
 from functools import partial
 
 
+def transform(parsetree):
+    """
+    Takes in a parse tree and processes it to return an AST
+    >>> from .yamlreader import parse
+    >>> with open('ostester/tests/test-compare.yaml') as fixture:
+    ...     parsetree = parse(fixture)
+    """
+    pass
+
+
 def FileMetadata(header, **kwargs):
     return {"header": header}
 
