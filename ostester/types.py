@@ -2,6 +2,15 @@ import abc
 import re
 
 
+class Value:
+    """
+    A type-inferred value.
+    >>> Value(1)
+    Value(1)
+    """
+    pass
+
+
 def c_type(type_decl):
     return _SimpleCType(type_decl)
 
