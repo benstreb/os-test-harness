@@ -3,6 +3,19 @@ import abc
 from .utils import new_name
 
 
+class Value:
+    """
+    A type-inferred value.
+    >>> Value(1)
+    Value(1)
+    """
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return 'Value({})'.format(repr(self.value))
+
+
 class TypeValue(metaclass=abc.ABCMeta):
     """
     A value and type combo needed for codegen.

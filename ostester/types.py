@@ -2,19 +2,6 @@ import abc
 import re
 
 
-class Value:
-    """
-    A type-inferred value.
-    >>> Value(1)
-    Value(1)
-    """
-    def __init__(self, value):
-        self.value = value
-
-    def __repr__(self):
-        return 'Value({})'.format(repr(self.value))
-
-
 def c_type(type_decl):
     return _SimpleCType(type_decl)
 
