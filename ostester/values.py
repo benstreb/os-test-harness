@@ -7,13 +7,16 @@ class Value:
     """
     A type-inferred value.
     >>> Value(1)
-    Value(1)
+    Value(1, name='...')
+    >>> Value(1, 'number')
+    Value(1, name='number')
     """
-    def __init__(self, value):
+    def __init__(self, value, name=None):
         self.value = value
+        self.name = name
 
     def __repr__(self):
-        return 'Value({})'.format(repr(self.value))
+        return "Value({}, name='{}')".format(repr(self.value), self.name)
 
 
 class TypeValue(metaclass=abc.ABCMeta):
