@@ -1,7 +1,7 @@
 from collections import namedtuple
 from functools import partial
 
-from .typevalues import TypeValue
+from .values import TypeValue
 
 
 def transform(parsetree):
