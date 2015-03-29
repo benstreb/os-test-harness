@@ -16,7 +16,7 @@ class Value:
     """
     def __init__(self, value, name=None):
         self.value = value
-        self.name = name
+        self.name = name if name is not None else new_name()
 
     def __repr__(self):
         return "Value({}, name='{}')".format(repr(self.value), self.name)
