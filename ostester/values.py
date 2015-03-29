@@ -6,8 +6,11 @@ from .utils import new_name
 class Value:
     """
     A type-inferred value.
-    >>> Value(1)
+    >>> unnamed = Value(1)
+    >>> unnamed
     Value(1, name='...')
+    >>> unnamed.name is not None
+    True
     >>> Value(1, 'number')
     Value(1, name='number')
     """
