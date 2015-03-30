@@ -13,13 +13,20 @@ class Value:
     True
     >>> Value(1, 'number')
     Value(1, name='number')
+    >>> Value(1, 'number', 'int')
+    Value(1, name='number', type='int')
     """
-    def __init__(self, value, name=None):
+    def __init__(self, value, name=None, type=None):
         self.value = value
         self.name = name if name is not None else new_name()
+        self.type = type
 
     def __repr__(self):
-        return "Value({}, name='{}')".format(repr(self.value), self.name)
+        if self.type is None:
+            format_str = "Value({}, name='{}')"
+        else:
+            format_str = "Value({}, name='{}', type='{}')"
+        return format_str.format(repr(self.value), self.name, self.type)
 
 
 class TypeValue(metaclass=abc.ABCMeta):
