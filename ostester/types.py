@@ -3,6 +3,14 @@ import re
 
 
 def c_type(type_decl):
+    """
+    Returns a type for the given type declaration.
+    >>> c_type('int').base_type
+    'int'
+    """
+    type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
+    base_type, stars, arrays, _ = type_spec.match(
+        type_decl).groups()
     return _SimpleCType(type_decl)
 
 
@@ -43,11 +51,9 @@ class _SimpleCType(_CType):
     >>> _SimpleCType('char').initialize("value", 'a')
     "char value = 'a'"
     """
-    type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
 
-    def __init__(self, type_decl):
-        self.base_type, self.stars, self.arrays, _ = self.type_spec.match(
-            type_decl).groups()
+    def __init__(self, base_type):
+        self.base_type = base_type
 
     def declare(self, name):
         return '{} {}'.format(
@@ -56,20 +62,14 @@ class _SimpleCType(_CType):
         )
 
     def initialize(self, name, value):
-        return '{} {}{}{} = {}'.format(
+        return '{} {} = {}'.format(
             self.base_type,
-            self.stars,
             name,
-            self.arrays,
             type_formatters[self.base_type](value),
         )
 
     def __repr__(self):
-        return '{}{}{}'.format(
-            self.base_type,
-            self.stars,
-            self.arrays,
-        )
+        return '{}'.format(self.base_type)
 
 
 class _ArrayCType(_CType):
