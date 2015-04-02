@@ -32,6 +32,13 @@ class CodegenTestCase(unittest.TestCase):
         logging.getLogger('tests').info(suite)
 
 
+class ASTTestCase(unittest.TestCase):
+    def test_transform(self):
+        with open('ostester/tests/test-compare.yaml') as fixture:
+            parsetree = yamlreader.parse(fixture)
+        ast.root(parsetree)
+
+
 def load_tests(loader, tests, ignore):
     from . import yamlreader, ccodegen, types, values, ast
     tests.addTests(DocTestSuite(yamlreader))

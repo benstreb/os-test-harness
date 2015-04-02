@@ -7,10 +7,6 @@ from .values import TypeValue
 def transform(parsetree):
     """
     Takes in a parse tree and processes it to return an AST
-    >>> from .yamlreader import parse
-    >>> with open('ostester/tests/test-compare.yaml') as fixture:
-    ...     parsetree = parse(fixture)
-    >>> ast = root(parsetree)
     """
     return root(parsetree)
 
