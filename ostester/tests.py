@@ -20,7 +20,7 @@ class CodegenTestCase(unittest.TestCase):
 
     def test_main_codegen(self):
         main = ccodegen.render_main((self.parse_tree[0]['header'],))
-        assert main
+        self.assertTrue(main)
         logging.getLogger('tests').info(main)
 
     def test_header_suite_codegen(self):
@@ -28,7 +28,7 @@ class CodegenTestCase(unittest.TestCase):
             self.parse_tree[0]['header'],
             self.parse_tree[1],
         )
-        assert suite
+        self.assertTrue(suite)
         logging.getLogger('tests').info(suite)
 
 
