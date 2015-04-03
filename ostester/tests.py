@@ -2,7 +2,7 @@ import logging
 import unittest
 from doctest import DocTestSuite, REPORT_ONLY_FIRST_FAILURE, ELLIPSIS
 
-from . import ccodegen, yamlreader, ast
+from . import ccodegen, yamlreader, ast, values
 
 
 class CodegenTestCase(unittest.TestCase):
@@ -37,6 +37,17 @@ class ASTTestCase(unittest.TestCase):
         with open('ostester/tests/test-compare.yaml') as fixture:
             parsetree = yamlreader.parse(fixture)
         ast.root(parsetree)
+
+
+class TypeTestCase(unittest.TestCase):
+    def test_value(self):
+        unnamed = values.Value(1)
+        self.assertEqual(unnamed.value, 1)
+        self.assertNotEqual(unnamed.name, None)
+        self.assertEqual(values.Value(1, 'number').name, 'number')
+        typed = values.Value(1, 'number', 'int')
+        self.assertEqual(typed.type, 'int')
+        self.assertEqual(repr(typed), "Value(1, name='number', type='int')")
 
 
 def load_tests(loader, tests, ignore):

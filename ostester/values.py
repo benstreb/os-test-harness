@@ -6,15 +6,6 @@ from .utils import new_name
 class Value:
     """
     A type-inferred value.
-    >>> unnamed = Value(1)
-    >>> unnamed
-    Value(1, name='...')
-    >>> unnamed.name is not None
-    True
-    >>> Value(1, 'number')
-    Value(1, name='number')
-    >>> Value(1, 'number', 'int')
-    Value(1, name='number', type='int')
     """
     def __init__(self, value, name=None, type=None):
         self.value = value
