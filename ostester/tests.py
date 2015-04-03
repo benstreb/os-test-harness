@@ -43,11 +43,24 @@ class TypeTestCase(unittest.TestCase):
     def test_value(self):
         unnamed = values.Value(1)
         self.assertEqual(unnamed.value, 1)
-        self.assertNotEqual(unnamed.name, None)
+        self.assertIsNot(unnamed.name, None)
         self.assertEqual(values.Value(1, 'number').name, 'number')
         typed = values.Value(1, 'number', 'int')
         self.assertEqual(typed.type, 'int')
         self.assertEqual(repr(typed), "Value(1, name='number', type='int')")
+
+    def test_type_value(self):
+        from . import types
+        int = types.c_type('int')
+        test = values.TypeValue(1, int, name='test')
+        self.assertEqual(test.value, 1)
+        self.assertEqual(test.type, int)
+        self.assertEqual(test.name, 'test')
+        self.assertEqual(repr(test),
+                         "TypeValue(value=1, type=int, name='test')")
+        self.assertEqual(test.initialize(), 'int test = 1')
+        unnamed = values.TypeValue(1, int)
+        self.assertIsNot(unnamed.name, None)
 
 
 def load_tests(loader, tests, ignore):
