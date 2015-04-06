@@ -5,33 +5,6 @@ from doctest import DocTestSuite, REPORT_ONLY_FIRST_FAILURE, ELLIPSIS
 from . import ccodegen, yamlreader, ast, values
 
 
-class CodegenTestCase(unittest.TestCase):
-    def setUp(self):
-        self.parse_tree = [
-            {'header': 'compare.h'},
-            [{'name': 'compare',
-             'type': yamlreader.Signature(inputs=['char', 'char*'],
-                                          output='int'),
-             'tests': [
-                 {'args': ['a', ['a', 'b']],
-                  'comparison': ast.comparisons['less_than'](0),
-                  'number': 1}],
-            }]]
-
-    def test_main_codegen(self):
-        main = ccodegen.render_main((self.parse_tree[0]['header'],))
-        self.assertTrue(main)
-        logging.getLogger('tests').info(main)
-
-    def test_header_suite_codegen(self):
-        suite = ccodegen.render_header_suite(
-            self.parse_tree[0]['header'],
-            self.parse_tree[1],
-        )
-        self.assertTrue(suite)
-        logging.getLogger('tests').info(suite)
-
-
 class ASTTestCase(unittest.TestCase):
     def test_transform(self):
         with open('ostester/tests/test-compare.yaml') as fixture:
@@ -61,6 +34,33 @@ class TypeTestCase(unittest.TestCase):
         self.assertEqual(test.initialize(), 'int test = 1')
         unnamed = values.TypeValue(1, int)
         self.assertIsNot(unnamed.name, None)
+
+
+class CodegenTestCase(unittest.TestCase):
+    def setUp(self):
+        self.parse_tree = [
+            {'header': 'compare.h'},
+            [{'name': 'compare',
+             'type': yamlreader.Signature(inputs=['char', 'char*'],
+                                          output='int'),
+             'tests': [
+                 {'args': ['a', ['a', 'b']],
+                  'comparison': ast.comparisons['less_than'](0),
+                  'number': 1}],
+            }]]
+
+    def test_main_codegen(self):
+        main = ccodegen.render_main((self.parse_tree[0]['header'],))
+        self.assertTrue(main)
+        logging.getLogger('tests').info(main)
+
+    def test_header_suite_codegen(self):
+        suite = ccodegen.render_header_suite(
+            self.parse_tree[0]['header'],
+            self.parse_tree[1],
+        )
+        self.assertTrue(suite)
+        logging.getLogger('tests').info(suite)
 
 
 def load_tests(loader, tests, ignore):
