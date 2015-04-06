@@ -109,7 +109,8 @@ class Pointer(yaml.YAMLObject):
 
 
 class Signature(yaml.YAMLObject):
-    """Represents the signature of the function under test.
+    """
+    Represents the signature of the function under test.
     >>> yaml.safe_load('int -> int')
     Signature(inputs=[int], output=int)
     >>> yaml.safe_load('int, char* -> char*')
