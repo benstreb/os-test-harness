@@ -71,6 +71,10 @@ class _SimpleCType(_CType):
     def __repr__(self):
         return '{}'.format(self.base_type)
 
+    def __eq__(self, other):
+        return (isinstance(other, _SimpleCType) and
+                self.base_type == other.base_type)
+
 
 class _ArrayCType(_CType):
     """

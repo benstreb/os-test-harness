@@ -52,6 +52,9 @@ class Zeroed(collections.abc.Sequence, yaml.YAMLObject, metaclass=ABCYAMLMeta):
     def __repr__(self):
         return 'Zeroed({})'.format(repr(self.len))
 
+    def __eq__(self, other):
+        return isinstance(other, Zeroed) and other.len == self.len
+
 
 class Pointer(yaml.YAMLObject):
     """
@@ -84,6 +87,11 @@ class Pointer(yaml.YAMLObject):
         else:
             format_str = 'Pointer({}, offset={})'
         return format_str.format(repr(self.data), self.offset)
+
+    def __eq__(self, other):
+        return (isinstance(other, Pointer) and
+                other.data == self.data and
+                other.offset == self.offset)
 
 
 class Signature(yaml.YAMLObject):
@@ -121,6 +129,11 @@ class Signature(yaml.YAMLObject):
             repr(self.inputs),
             repr(self.output),
         )
+
+    def __eq__(self, other):
+        return (isinstance(other, Signature) and
+                self.inputs == other.inputs and
+                self.output == other.output)
 
 yaml.SafeLoader.add_implicit_resolver('!signature', Signature.yaml_resolver, None)
 
