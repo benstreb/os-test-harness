@@ -8,6 +8,7 @@ from . import ast, ccodegen, types, values, yamlreader
 
 
 class YAMLParseTestCase(unittest.TestCase):
+    @unittest.skip('Pointers are temporarily out of commision')
     def test_integration_parse(self):
         with open("ostester/tests/test-compare.yaml", 'r') as f:
             yml = yamlreader.parse(f)
@@ -30,6 +31,7 @@ class YAMLParseTestCase(unittest.TestCase):
         self.assertEqual(yaml.dump(ptr), "!ptr 'value'\n")
         self.assertEqual(yaml.dump(offset_ptr), "!ptr 'array+3'\n")
 
+    @unittest.skip('Pointers are temporarily out of commision')
     def test_signature(self):
         Signature = yamlreader.Signature
         sig = yaml.safe_load('int -> int')
@@ -46,6 +48,7 @@ class YAMLParseTestCase(unittest.TestCase):
 
 
 class ASTTestCase(unittest.TestCase):
+    @unittest.skip('Pointers are temporarily out of commision')
     def test_transform(self):
         with open('ostester/tests/test-compare.yaml') as fixture:
             parsetree = yamlreader.parse(fixture)
@@ -76,6 +79,7 @@ class TypeTestCase(unittest.TestCase):
         self.assertIsNot(unnamed.name, None)
 
 
+@unittest.skip('Pointers are temporarily out of commision')
 class CodegenTestCase(unittest.TestCase):
     def setUp(self):
         self.parse_tree = [

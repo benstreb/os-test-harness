@@ -11,6 +11,8 @@ def c_type(type_decl):
     type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
     base_type, stars, arrays, _ = type_spec.match(
         type_decl).groups()
+    if stars != '' or arrays != '':
+        raise NotImplementedError()
     return _SimpleCType(type_decl)
 
 
