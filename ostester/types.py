@@ -5,8 +5,6 @@ import re
 def c_type(type_decl):
     """
     Returns a type for the given type declaration.
-    >>> c_type('int').base_type
-    'int'
     """
     type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
     base_type, stars, arrays, _ = type_spec.match(
@@ -43,15 +41,6 @@ type_formatters = {
 class _SimpleCType(_CType):
     """
     Represents a non-composite type in C.
-    >>> t = _SimpleCType("int")
-    >>> t
-    int
-    >>> t.declare("value")
-    'int value'
-    >>> t.initialize("value", '1')
-    'int value = 1'
-    >>> _SimpleCType('char').initialize("value", 'a')
-    "char value = 'a'"
     """
 
     def __init__(self, base_type):
@@ -81,9 +70,6 @@ class _SimpleCType(_CType):
 class _ArrayCType(_CType):
     """
     Represents an array in C.
-    >>> t = _ArrayCType("int", 3)
-    >>> t.declare('array')
-    'int array[3]'
     """
 
     def __init__(self, base_type, length):

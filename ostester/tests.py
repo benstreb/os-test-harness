@@ -55,6 +55,25 @@ class ASTTestCase(unittest.TestCase):
         ast.root(parsetree)
 
 
+class TypeTestCase(unittest.TestCase):
+    def test_c_type(self):
+        self.assertEqual(types.c_type('int').base_type, 'int')
+
+    def test_simple_c_type(self):
+        int = types._SimpleCType('int')
+        int.base_type = 'int'
+        self.assertEqual(int.declare('value'), 'int value')
+        self.assertEqual(int.initialize('value', '1'),
+                         'int value = 1')
+        char = types._SimpleCType('char')
+        self.assertEqual(char.initialize('value', 'a'),
+                         "char value = 'a'")
+
+    def test_array_c_type(self):
+        arr = types._ArrayCType('int', 3)
+        self.assertEqual(arr.declare('array'), 'int array[3]')
+
+
 class ValueTestCase(unittest.TestCase):
     def test_value(self):
         unnamed = values.Value(1)
