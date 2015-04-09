@@ -55,7 +55,7 @@ class ASTTestCase(unittest.TestCase):
         ast.root(parsetree)
 
 
-class TypeTestCase(unittest.TestCase):
+class ValueTestCase(unittest.TestCase):
     def test_value(self):
         unnamed = values.Value(1)
         self.assertEqual(unnamed.value, 1)
