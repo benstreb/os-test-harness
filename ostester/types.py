@@ -67,6 +67,25 @@ class _SimpleCType(_CType):
                 self.base_type == other.base_type)
 
 
+class Int(_SimpleCType):
+    def __init__(self):
+        self.base_type = 'int'
+
+    def coerce(self, value):
+        return int(value)
+
+
+class Char(_SimpleCType):
+    def __init__(self):
+        self.base_type = 'char'
+
+    def coerce(self, value):
+        s = str(value)
+        if len(s) != 1:
+            raise ValueError("Characters need to have length 1")
+        return s
+
+
 class _ArrayCType(_CType):
     """
     Represents an array in C.

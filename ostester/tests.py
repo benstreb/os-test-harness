@@ -59,15 +59,17 @@ class TypeTestCase(unittest.TestCase):
     def test_c_type(self):
         self.assertEqual(types.c_type('int').base_type, 'int')
 
-    def test_simple_c_type(self):
-        int = types._SimpleCType('int')
+    def test_simple_types(self):
+        int = types.Int()
         int.base_type = 'int'
         self.assertEqual(int.declare('value'), 'int value')
         self.assertEqual(int.initialize('value', '1'),
                          'int value = 1')
-        char = types._SimpleCType('char')
+        self.assertEqual(int.coerce('1'), 1)
+        char = types.Char()
         self.assertEqual(char.initialize('value', 'a'),
                          "char value = 'a'")
+        self.assertEqual(char.coerce('1'), '1')
 
     def test_array_c_type(self):
         arr = types._ArrayCType('int', 3)
