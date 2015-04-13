@@ -56,6 +56,14 @@ class ASTTestCase(unittest.TestCase):
 
 
 class TypeTestCase(unittest.TestCase):
+    def test_functional(self):
+        int = types.c_type('int')
+        self.assertEqual(int.initialize('value', '1'),
+                         'int value = 1')
+        char = types.c_type('char')
+        self.assertEqual(char.initialize('value', 'c'),
+                         "char value = 'c'")
+
     def test_c_type(self):
         self.assertEqual(types.c_type('int').base_type, 'int')
 

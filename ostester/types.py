@@ -11,7 +11,10 @@ def c_type(type_decl):
         type_decl).groups()
     if stars != '' or arrays != '':
         raise NotImplementedError()
-    return _SimpleCType(type_decl)
+    elif base_type not in type_map:
+        raise ValueError('Unsupported base type: {}'.format(base_type))
+    else:
+        return type_map[base_type]
 
 
 class _CType(metaclass=abc.ABCMeta):
@@ -84,6 +87,12 @@ class Char(_SimpleCType):
 
     def _rhs_format(self, value):
         return "'{}'".format(self.coerce(value))
+
+
+type_map = {
+    'int': Int(),
+    'char': Char(),
+}
 
 
 class _ArrayCType(_CType):
