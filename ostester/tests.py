@@ -88,7 +88,7 @@ class ValueTestCase(unittest.TestCase):
 
     def test_type_value(self):
         from . import types
-        int = types.c_type('int')
+        int = types.Int()
         test = values.TypeValue(1, int, name='test')
         self.assertEqual(test.value, 1)
         self.assertEqual(test.type, int)
