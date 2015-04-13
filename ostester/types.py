@@ -32,12 +32,6 @@ class _CType(metaclass=abc.ABCMeta):
         pass
 
 
-type_formatters = {
-    'int': str,
-    'char': "'{}'".format,
-}
-
-
 class _SimpleCType(_CType):
     """
     Represents a non-composite type in C.
@@ -56,7 +50,7 @@ class _SimpleCType(_CType):
         return '{} {} = {}'.format(
             self.base_type,
             name,
-            type_formatters[self.base_type](value),
+            self._rhs_format(value),
         )
 
     def __repr__(self):
@@ -74,6 +68,9 @@ class Int(_SimpleCType):
     def coerce(self, value):
         return int(value)
 
+    def _rhs_format(self, value):
+        return str(self.coerce(value))
+
 
 class Char(_SimpleCType):
     def __init__(self):
@@ -84,6 +81,9 @@ class Char(_SimpleCType):
         if len(s) != 1:
             raise ValueError("Characters need to have length 1")
         return s
+
+    def _rhs_format(self, value):
+        return "'{}'".format(self.coerce(value))
 
 
 class _ArrayCType(_CType):
