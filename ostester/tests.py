@@ -79,9 +79,9 @@ class TypeTestCase(unittest.TestCase):
                          "char value = 'a'")
         self.assertEqual(char.coerce('1'), '1')
 
-    def test_array_c_type(self):
-        arr = types._ArrayCType('int', 3)
-        self.assertEqual(arr.declare('array'), 'int array[3]')
+    def test_pointer_type(self):
+        ptr = types.Pointer(types.Int())
+        self.assertEqual(ptr.declare('ptr'), 'int *ptr')
 
 
 class ValueTestCase(unittest.TestCase):

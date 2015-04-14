@@ -9,8 +9,10 @@ def c_type(type_decl):
     type_spec = re.compile(r'(\w+)\s*(\**)\s*((\[\d+\])*)')
     base_type, stars, arrays, _ = type_spec.match(
         type_decl).groups()
-    if stars != '' or arrays != '':
+    if arrays != '':
         raise NotImplementedError()
+    elif stars != '':
+        return Pointer(c_type(base_type + stars[1:]))
     elif base_type not in type_map:
         raise ValueError('Unsupported base type: {}'.format(base_type))
     else:
@@ -95,17 +97,16 @@ type_map = {
 }
 
 
-class _ArrayCType(_CType):
+class Pointer(_CType):
     """
-    Represents an array in C.
+    Represents a pointer in C.
     """
 
-    def __init__(self, base_type, length):
-        self.base_type = c_type(base_type)
-        self.length = length
+    def __init__(self, inner_type):
+        self.inner_type = inner_type
 
     def declare(self, name):
-        return '{}[{}]'.format(self.base_type.declare(name), self.length)
+        return '{} *{}'.format(self.inner_type, name)
 
     def initialize(self, name, value):
         raise NotImplementedError()
