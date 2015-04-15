@@ -106,10 +106,10 @@ class Pointer(_CType):
         self.inner_type = inner_type
 
     def declare(self, name):
-        return '{} *{}'.format(self.inner_type, name)
+        return '{}*{}'.format(self.inner_type, name)
 
     def initialize(self, name, value):
         raise NotImplementedError()
 
     def __repr__(self):
-        raise NotImplementedError()
+        return '{}*'.format(self.inner_type)
