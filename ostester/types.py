@@ -113,3 +113,7 @@ class Pointer(_CType):
 
     def __repr__(self):
         return '{}*'.format(self.inner_type)
+
+    def __eq__(self, other):
+        return (isinstance(other, Pointer) and
+                self.inner_type == other.inner_type)
