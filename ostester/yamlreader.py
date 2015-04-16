@@ -136,8 +136,3 @@ class Signature(yaml.YAMLObject):
                 self.output == other.output)
 
 yaml.SafeLoader.add_implicit_resolver('!signature', Signature.yaml_resolver, None)
-
-
-def transform(yaml):
-    pass
-
