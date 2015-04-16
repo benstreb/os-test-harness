@@ -62,7 +62,7 @@ class _SimpleCType(_CType):
         return '{}'.format(self.base_type)
 
     def __eq__(self, other):
-        return (isinstance(other, _SimpleCType) and
+        return (isinstance(other, type(self)) and
                 self.base_type == other.base_type)
 
 
