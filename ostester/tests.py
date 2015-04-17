@@ -81,6 +81,7 @@ class TypeTestCase(unittest.TestCase):
         self.assertEqual(ptr.declare('ptr'), 'int*ptr')
         nested_ptr = types.Pointer(ptr)
         self.assertEqual(nested_ptr.declare('np'), 'int**np')
+        self.assertEqual(ptr.initialize('ptr', 0), 'int*ptr = 0')
 
 
 class ValueTestCase(unittest.TestCase):
