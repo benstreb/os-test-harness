@@ -38,3 +38,13 @@ class TypeValue(metaclass=abc.ABCMeta):
 
     def initialize(self):
         return self.type.initialize(self.name, self.value)
+
+
+class Declaration:
+    """
+    A type, value, and name
+    """
+    def __init__(self, type, value, name):
+        self.type = type
+        self.value = value
+        self.name = name

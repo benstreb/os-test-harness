@@ -107,6 +107,9 @@ class ValueTestCase(unittest.TestCase):
         unnamed = values.TypeValue(1, int)
         self.assertIsNot(unnamed.name, None)
 
+    def test_declaration(self):
+        values.Declaration(types.Int(), 'i', 0)
+
 
 class CodegenTestCase(unittest.TestCase):
     def setUp(self):
