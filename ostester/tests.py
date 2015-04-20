@@ -51,6 +51,12 @@ class ASTTestCase(unittest.TestCase):
             parsetree = yamlreader.parse(fixture)
         ast.root(parsetree)
 
+    def test_new_declarations(self):
+        decls = ast.new_declarations([], [3], [types.Int()])
+        self.assertEqual(len(decls), 1)
+        self.assertEqual(decls[0].value, 3)
+        self.assertIsInstance(decls[0].type, types.Int)
+
 
 class TypeTestCase(unittest.TestCase):
     def test_functional(self):
