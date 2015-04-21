@@ -100,21 +100,18 @@ class ValueTestCase(unittest.TestCase):
         self.assertEqual(typed.type, 'int')
         self.assertEqual(repr(typed), "Value(1, name='number', type='int')")
 
-    def test_type_value(self):
+    def test_declaration(self):
         from . import types
         int = types.Int()
-        test = values.TypeValue(1, int, name='test')
+        test = values.Declaration(1, int, name='test')
         self.assertEqual(test.value, 1)
         self.assertEqual(test.type, int)
         self.assertEqual(test.name, 'test')
         self.assertEqual(repr(test),
-                         "TypeValue(value=1, type=int, name='test')")
+                         "Declaration(value=1, type=int, name='test')")
         self.assertEqual(test.initialize(), 'int test = 1')
-        unnamed = values.TypeValue(1, int)
+        unnamed = values.Declaration(1, int)
         self.assertIsNot(unnamed.name, None)
-
-    def test_declaration(self):
-        values.Declaration(types.Int(), 'i', 0)
 
 
 class CodegenTestCase(unittest.TestCase):

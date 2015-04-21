@@ -20,9 +20,9 @@ class Value:
         return format_str.format(repr(self.value), self.name, self.type)
 
 
-class TypeValue(metaclass=abc.ABCMeta):
+class Declaration(metaclass=abc.ABCMeta):
     """
-    A value and type combo needed for codegen.
+    Represents a declaration - a type, a name, and a value
     """
     def __init__(self, value, type, name=None):
         self.value = value
@@ -30,7 +30,7 @@ class TypeValue(metaclass=abc.ABCMeta):
         self.name = name if name is not None else new_name()
 
     def __repr__(self):
-        return "TypeValue(value={}, type={}, name='{}')".format(
+        return "Declaration(value={}, type={}, name='{}')".format(
             self.value,
             self.type,
             self.name,
@@ -38,13 +38,3 @@ class TypeValue(metaclass=abc.ABCMeta):
 
     def initialize(self):
         return self.type.initialize(self.name, self.value)
-
-
-class Declaration:
-    """
-    A type, value, and name
-    """
-    def __init__(self, type, value, name):
-        self.type = type
-        self.value = value
-        self.name = name

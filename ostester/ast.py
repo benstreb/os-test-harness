@@ -1,7 +1,7 @@
 from collections import namedtuple
 from functools import partial
 
-from .values import TypeValue
+from .values import Declaration
 
 
 def transform(parsetree):
@@ -27,7 +27,7 @@ def function_test(test):
 
 def test_case(test_case, function_type):
     declarations = []
-    args = [TypeValue(t, v) for t, v in
+    args = [Declaration(t, v) for t, v in
             zip(test_case['args'], function_type.inputs)]
     comparison, = test_case.keys() & comparisons
     return {'declarations': declarations,
