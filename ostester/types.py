@@ -111,6 +111,9 @@ class Pointer(_CType):
     def initialize(self, name, value):
         return '{}*{} = {}'.format(self.inner_type, name, value)
 
+    def coerce(self, value):
+        return self.inner_type.coerce(value)
+
     def __repr__(self):
         return '{}*'.format(self.inner_type)
 
