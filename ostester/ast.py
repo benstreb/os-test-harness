@@ -62,7 +62,7 @@ def recursive_declarations(declarations, arg, name, type):
                                    declarations[arg.data],
                                    arg.data,
                                    inner_type) +
-            (Declaration(declarations[arg.data], type, name),))
+            (Declaration(arg.data, type, name),))
 
 
 class BinOp(namedtuple('BinOp', ('f', 'arg'))):
