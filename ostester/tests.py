@@ -164,6 +164,15 @@ class CodegenTestCase(unittest.TestCase):
         logging.getLogger('tests').info(suite)
 
 
+class IntegrationTestCase(unittest.TestCase):
+    def test_front_to_back(self):
+        with open("ostester/tests/test-compare.yaml", 'r') as f:
+            yml = yamlreader.parse(f)
+        ast_ = ast.transform(yml)
+        render_main([ast_['header']])
+        render_header_suite(ast_['header'], ast_[tests])
+
+
 def load_tests(loader, tests, ignore):
     from . import yamlreader, ccodegen, types, values, ast
     tests.addTests(DocTestSuite(yamlreader))
