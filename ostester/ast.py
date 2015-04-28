@@ -31,7 +31,7 @@ def function_test(test):
 def test_case(test_case, function_type):
     # Pointer in args
     # Literals in args
-    declarations = new_declarations(test_case.get('declarations', {}),
+    declarations = new_declarations(test_case.get('data', {}),
                                     test_case['args'],
                                     function_type.inputs)
     args = [Declaration(t, v) for t, v in

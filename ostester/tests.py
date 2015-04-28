@@ -169,8 +169,8 @@ class IntegrationTestCase(unittest.TestCase):
         with open("ostester/tests/test-compare.yaml", 'r') as f:
             yml = yamlreader.parse(f)
         ast_ = ast.transform(yml)
-        render_main([ast_['header']])
-        render_header_suite(ast_['header'], ast_[tests])
+        ccodegen.render_main([ast_['header']])
+        ccodegen.render_header_suite(ast_['header'], ast_['tests'])
 
 
 def load_tests(loader, tests, ignore):
