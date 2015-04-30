@@ -1,6 +1,9 @@
+from pathlib import Path
 import logging
 import unittest
 from doctest import DocTestSuite, REPORT_ONLY_FIRST_FAILURE, ELLIPSIS
+from subprocess import call
+from tempfile import TemporaryDirectory
 
 import yaml
 
@@ -170,10 +173,18 @@ class IntegrationTestCase(unittest.TestCase):
             yml = yamlreader.parse(f)
         ast_ = ast.transform(yml)
         test_logger = logging.getLogger('tests')
-        main = ccodegen.render_main([ast_['header']])
-        test_logger.info(main)
-        header = ccodegen.render_header_suite(ast_['header'], ast_['tests'])
-        test_logger.info(header)
+        with TemporaryDirectory() as temp_dir:
+            dir = Path(temp_dir)
+            with (dir / 'main.c').open('w') as main:
+                main_text = ccodegen.render_main([ast_['header']])
+                test_logger.info(main)
+                print(main_text, file=main)
+            with (dir / 'compare.c').open('w') as compare:
+                compare_text = ccodegen.render_header_suite(
+                    ast_['header'], ast_['tests'])
+                test_logger.info(compare_text)
+                print(compare_text, file=compare)
+            call(['gcc', str(dir/'main.c'), str(dir/'compare.c')])
 
 
 def load_tests(loader, tests, ignore):
