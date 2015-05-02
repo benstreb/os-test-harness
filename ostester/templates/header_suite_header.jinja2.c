@@ -1,0 +1,1 @@
+uint32_t {{ function|header_to_function_name }}(void);
