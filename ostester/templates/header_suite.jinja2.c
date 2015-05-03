@@ -6,7 +6,7 @@
 {% for function in functions %}
 uint32_t {{ function.name }}()
 {
-    {% for test in function.tests %}
+    {% for test in function.test_cases %}
     {{ test_case(function, test) }}
     {% endfor %}
     return 0;
