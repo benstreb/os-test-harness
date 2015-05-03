@@ -17,6 +17,11 @@ def render_main(tested_headers):
     return template.render(test_headers=tested_headers)
 
 
+def render_header_suite_header(header):
+    template = env.get_template('header_suite_header.jinja2.c')
+    template.render(function=header)
+
+
 def render_header_suite(header, functions):
     """
     Returns a string containing the entry point for the generated tests
