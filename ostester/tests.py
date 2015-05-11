@@ -34,6 +34,12 @@ class YAMLParseTestCase(unittest.TestCase):
         self.assertEqual(yaml.dump(ptr), "!ptr 'value'\n")
         self.assertEqual(yaml.dump(offset_ptr), "!ptr 'array+3'\n")
 
+    def test_offset(self):
+        Offset = yamlreader.Offset
+        offset = yaml.safe_load('!offset value+3')
+        self.assertEqual(offset, Offset('value', 3))
+        self.assertEqual(yaml.dump(offset), "!offset 'value+3'\n")
+
     def test_signature(self):
         Signature = yamlreader.Signature
         sig = yaml.safe_load('int -> int')
