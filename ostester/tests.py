@@ -53,12 +53,6 @@ class YAMLParseTestCase(unittest.TestCase):
 
 
 class ASTTestCase(unittest.TestCase):
-    @unittest.skip('Currently non-functional while arrays are worked on')
-    def test_transform(self):
-        with open('ostester/tests/test-compare.yaml') as fixture:
-            parsetree = yamlreader.parse(fixture)
-        ast.root(parsetree)
-
     def test_new_declarations(self):
         int = types.Int()
         decls = ast.new_declarations({}, [3], [int])
