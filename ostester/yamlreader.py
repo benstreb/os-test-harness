@@ -63,35 +63,23 @@ class Pointer(yaml.YAMLObject):
     yaml_loader = yaml.SafeLoader
     yaml_tag = '!ptr'
 
-    def __init__(self, data, offset=0):
+    def __init__(self, data):
         self.data = data
-        self.offset = int(offset)
 
     @classmethod
     def from_yaml(cls, loader, node):
-        args = map(str.strip, node.value.split('+'))
-        return Pointer(*args)
+        return Pointer(node.value.strip())
 
     @classmethod
     def to_yaml(cls, dumper, data):
-        if not data.offset:
-            format_str = '{}'
-        else:
-            format_str = '{}+{}'
-        return dumper.represent_scalar(
-            Pointer.yaml_tag, format_str.format(data.data, data.offset))
+        return dumper.represent_scalar(Pointer.yaml_tag, data.data)
 
     def __repr__(self):
-        if not self.offset:
-            format_str = 'Pointer({})'
-        else:
-            format_str = 'Pointer({}, offset={})'
-        return format_str.format(repr(self.data), self.offset)
+        return 'Pointer({})'.format(repr(self.data))
 
     def __eq__(self, other):
         return (isinstance(other, Pointer) and
-                other.data == self.data and
-                other.offset == self.offset)
+                other.data == self.data)
 
 
 class Offset(yaml.YAMLObject):

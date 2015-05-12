@@ -29,10 +29,7 @@ class YAMLParseTestCase(unittest.TestCase):
         Pointer = yamlreader.Pointer
         ptr = yaml.safe_load('!ptr value')
         self.assertEqual(ptr, Pointer('value'))
-        offset_ptr = yaml.safe_load('!ptr array+3')
-        self.assertEqual(offset_ptr, Pointer('array', offset=3))
         self.assertEqual(yaml.dump(ptr), "!ptr 'value'\n")
-        self.assertEqual(yaml.dump(offset_ptr), "!ptr 'array+3'\n")
 
     def test_offset(self):
         Offset = yamlreader.Offset
