@@ -88,7 +88,7 @@ class ASTTestCase(unittest.TestCase):
         char_ptr = types.Pointer(types.Char())
         decls = ast.new_declarations(
             {'array': ['a', 'b', 'c']},
-            [yamlreader.Pointer('array', 3)],
+            [yamlreader.Offset('array', 3)],
             [char_ptr])
         self.assertEqual(decls[0].type, char_ptr)
 

@@ -9,5 +9,5 @@
       equals: 0
     - data:
         array: ['c', 'b', 'a']
-      args: ['b', !ptr array+1]
+      args: ['b', !offset array+1]
       greater_than: 0
