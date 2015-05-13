@@ -151,7 +151,7 @@ class CodegenTestCase(unittest.TestCase):
             [{'name': 'compare',
              'type': yamlreader.Signature(inputs=['char', 'char*'],
                                           output='int'),
-             'tests': [
+             'test_cases': [
                  {'args': ['a', ['a', 'b']],
                   'comparison': ast.comparisons['less_than'](0),
                   'number': 1}],
