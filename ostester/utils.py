@@ -39,3 +39,13 @@ def new_name():
     global _num_names
     _num_names += 1
     return '_id_{}'.format(_num_names)
+
+
+def function_test_case_name(function_name):
+    """
+    Returns the name that a given function's test cases will be called
+    as.
+    >>> function_test_case_name('compare')
+    compare_test_case
+    """
+    return function_name + '_test_case'

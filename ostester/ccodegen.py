@@ -6,6 +6,7 @@ env = Environment(loader=PackageLoader('ostester', 'templates'),
                   trim_blocks=True,
                   lstrip_blocks=True)
 env.filters['header_to_function_name'] = utils.header_to_function_name
+env.filters['function_test_case_name'] = utils.function_test_case_name
 env.globals['new_name'] = utils.new_name
 
 
