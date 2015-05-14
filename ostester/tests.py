@@ -84,6 +84,7 @@ class ASTTestCase(unittest.TestCase):
             {'array': ['a', 'b', 'c']},
             [yamlreader.Offset('array', 3)],
             [char_ptr])
+        self.assertEqual(len(decls), 2)
         self.assertEqual(decls[0].type, char_ptr)
 
 
