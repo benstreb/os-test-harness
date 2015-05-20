@@ -86,6 +86,7 @@ class ASTTestCase(unittest.TestCase):
             [char_ptr])
         self.assertEqual(len(decls), 2)
         self.assertEqual(decls[0].type, char_ptr)
+        self.assertEqual(decls[1].type, char_ptr)
 
 
 class TypeTestCase(unittest.TestCase):
