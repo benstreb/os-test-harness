@@ -1,0 +1,12 @@
+C Types:
+int, char, ... - basic types
+T*, T**, T*** - pointer types
+char* - strings
+T[], T[][] - arrays
+
+
+
+Mappings:
+Num -> int, char if it's one digit
+Char -> char, num if it's a digit
+Offset -> pointer arrays (I.E. int* = {1, 2, 3}) + K
