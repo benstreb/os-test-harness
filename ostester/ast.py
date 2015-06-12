@@ -45,7 +45,7 @@ def test_case(test_case, function_type):
 def new_declarations(explicit_declarations, args, function_inputs):
     new_declarations = []
     for arg, type in zip(args, function_inputs):
-        if isinstance(arg, yr.Pointer) or isinstance(arg, yr.Offset):
+        if isinstance(arg, yr.Pointer):
             new_declarations.extend(
                 recursive_declarations(explicit_declarations,
                                        arg, utils.new_name(), type))
@@ -62,12 +62,6 @@ def recursive_declarations(declarations, arg, name, type):
                                        arg.data,
                                        inner_type) +
                 (Declaration(arg.data, type, name),))
-    elif isinstance(arg, yr.Offset):
-        return (recursive_declarations(declarations,
-                                       declarations[arg.data],
-                                       arg.data,
-                                       type) +
-                (Declaration(arg.data, types.Pointer(type), name),))
     return (Declaration(declarations[name], type, name),)
 
 

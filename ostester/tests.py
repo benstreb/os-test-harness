@@ -31,12 +31,6 @@ class YAMLParseTestCase(unittest.TestCase):
         self.assertEqual(ptr, Pointer('value'))
         self.assertEqual(yaml.dump(ptr), "!ptr 'value'\n")
 
-    def test_offset(self):
-        Offset = yamlreader.Offset
-        offset = yaml.safe_load('!offset value+3')
-        self.assertEqual(offset, Offset('value', 3))
-        self.assertEqual(yaml.dump(offset), "!offset 'value+3'\n")
-
     def test_signature(self):
         Signature = yamlreader.Signature
         sig = yaml.safe_load('int -> int')
@@ -79,14 +73,6 @@ class ASTTestCase(unittest.TestCase):
         self.assertEqual(decls[1].value, 'value')
         self.assertEqual(decls[2].value, 'inner_ptr')
         self.assertEqual(decls[2].type, int_ptr_ptr)
-        char_ptr = types.Pointer(types.Char())
-        decls = ast.new_declarations(
-            {'array': ['a', 'b', 'c']},
-            [yamlreader.Offset('array', 3)],
-            [char_ptr])
-        self.assertEqual(len(decls), 2)
-        self.assertEqual(decls[0].type, char_ptr)
-        self.assertEqual(decls[1].type, char_ptr)
 
 
 class TypeTestCase(unittest.TestCase):

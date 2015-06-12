@@ -82,37 +82,6 @@ class Pointer(yaml.YAMLObject):
                 other.data == self.data)
 
 
-class Offset(yaml.YAMLObject):
-    """
-    Represents an array offset
-    That is, a pointer of the form array + n
-    """
-    yaml_loader = yaml.SafeLoader
-    yaml_tag = '!offset'
-
-    def __init__(self, data, offset):
-        self.data = data
-        self.offset = int(offset)
-
-    @classmethod
-    def from_yaml(cls, loader, node):
-        data, offset = map(str.strip, node.value.split('+'))
-        return Offset(data, offset)
-
-    @classmethod
-    def to_yaml(cls, dumper, data):
-        return dumper.represent_scalar(
-            Offset.yaml_tag, '{}+{}'.format(data.data, data.offset))
-
-    def __repr__(self):
-        return 'Offset({}, {})'.format(repr(self.data), self.offset)
-
-    def __eq__(self, other):
-        return (isinstance(other, Offset) and
-                other.data == self.data and
-                other.offset == self.offset)
-
-
 class Signature(yaml.YAMLObject):
     """
     Represents the signature of the function under test.
