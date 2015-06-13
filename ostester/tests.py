@@ -107,6 +107,10 @@ class TypeTestCase(unittest.TestCase):
         self.assertEqual(ptr.initialize('ptr', 0), 'int*ptr = 0')
         self.assertEqual(nested_ptr.coerce(3), 3)
 
+    def test_nest_level(self):
+        self.assertEqual(types.nest_level([1, 2]), 1)
+        self.assertEqual(types.nest_level([[1, 2], [3, 4]]), 2)
+
 
 class ValueTestCase(unittest.TestCase):
     def test_value(self):

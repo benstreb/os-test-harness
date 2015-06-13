@@ -120,3 +120,10 @@ class Pointer(_CType):
     def __eq__(self, other):
         return (isinstance(other, Pointer) and
                 self.inner_type == other.inner_type)
+
+
+def nest_level(e):
+    if isinstance(e, list):
+        return nest_level(e[0]) + 1
+    else:
+        return 0
