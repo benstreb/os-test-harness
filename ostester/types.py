@@ -114,6 +114,11 @@ class Pointer(_CType):
     def coerce(self, value):
         return self.inner_type.coerce(value)
 
+    def indirection_level(self):
+        if isinstance(self.inner_type, Pointer):
+            return self.inner_type.indirection_level() + 1
+        return 1
+
     def __repr__(self):
         return '{}*'.format(self.inner_type)
 
