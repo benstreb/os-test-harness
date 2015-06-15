@@ -108,7 +108,11 @@ class TypeTestCase(unittest.TestCase):
         self.assertEqual(nested_ptr.indirection_level(), 2)
         self.assertEqual(ptr.initialize('ptr', 0), 'int*ptr = 0')
         self.assertEqual(nested_ptr.coerce(3), 3)
-        self.assertEqual(ptr.initialize('ptr', [1, 2]), 'int*ptr = {1, 2}')
+        string = types.Pointer(types.Char())
+        self.assertEqual(string.initialize(
+            'ptr', "abc"), 'char*ptr = "abc"')
+        self.assertEqual(string.initialize(
+            'ptr', ['a', 'b', 'c']), 'char*ptr = "abc"')
 
     def test_nest_level(self):
         self.assertEqual(types.nest_level([1, 2]), 1)

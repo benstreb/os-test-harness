@@ -109,9 +109,9 @@ class Pointer(_CType):
         return '{}*{}'.format(self.inner_type, name)
 
     def initialize(self, name, value):
-        if self.indirection_level() == nest_level(value):
-            return '{}*{} = {{{}}}'.format(
-                self.inner_type, name, ', '.join(map(repr, value)))
+        if isinstance(self.inner_type, Char):
+            return '{}*{} = "{}"'.format(
+                self.inner_type, name, ''.join(map(str, value)))
         return '{}*{} = {}'.format(self.inner_type, name, value)
 
     def coerce(self, value):
