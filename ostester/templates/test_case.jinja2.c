@@ -3,7 +3,7 @@
 {{ declaration.initialize() }};
 {% endfor %}
 {% set result = new_name() %}
-{{ fn.type.output.declare(result) }} = {{ fn.name }}({{ test.args|join(', ') }});
+{{ fn.type.output.declare(result) }} = {{ fn.name }}({{ test.arguments|map(attribute='name')|join(', ') }});
 if (!({{ test.comparison.compare_with(result) }}))
 {
     return {{ test.number }};
