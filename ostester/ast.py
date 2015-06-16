@@ -28,7 +28,9 @@ def function_test(test):
                 for test in test['tests']]}
 
 
+test_number = 0
 def test_case(test_case, function_type):
+    global test_number
     # Pointer in args
     # Literals in args
     declarations = new_declarations(test_case.get('data', {}),
@@ -37,9 +39,11 @@ def test_case(test_case, function_type):
     args = [Declaration(t, v) for t, v in
             zip(test_case['args'], function_type.inputs)]
     comparison, = test_case.keys() & comparisons
+    test_number += 1
     return {'declarations': declarations,
             'arguments': args,
-            'comparison': comparisons[comparison](test_case[comparison])}
+            'comparison': comparisons[comparison](test_case[comparison]),
+            'number': test_number}
 
 
 def new_declarations(explicit_declarations, args, function_inputs):
