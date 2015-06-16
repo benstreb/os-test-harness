@@ -154,9 +154,17 @@ class CodegenTestCase(unittest.TestCase):
         self.assertTrue(main)
         logging.getLogger('tests').info(main)
 
+    def test_header_suite_header_codegen(self):
+        header = ccodegen.render_header_suite_header(
+            self.parse_tree[0]['header']
+        )
+        self.assertTrue(header)
+        logging.getLogger('tests').info(header)
+
     def test_header_suite_codegen(self):
         suite = ccodegen.render_header_suite(
             self.parse_tree[0]['header'],
+            'test_'+self.parse_tree[0]['header'],
             self.parse_tree[1],
         )
         self.assertTrue(suite)
