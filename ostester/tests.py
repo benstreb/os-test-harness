@@ -172,7 +172,7 @@ class IntegrationTestCase(unittest.TestCase):
             gen_dir = Path(temp_dir)
             ccodegen.generate_files(ast_, gen_dir)
             call(['gcc', '-I', str(gen_dir), '-I', 'ostester/tests/',
-                  str(gen_dir/'main.c'), str(gen_dir/'compare.c')])
+                  str(gen_dir/'main.c'), str(gen_dir/'test_compare.c')])
 
 
 def load_tests(loader, tests, ignore):

@@ -1,6 +1,7 @@
 {% from 'test_case.jinja2.c' import test_case %}
 {% from 'suite.jinja2.c' import suite %}
 #include <stdint.h>
+#include "{{ header_suite_header_name }}"
 #include "{{ test_header_name }}"
 
 {% for function in functions %}

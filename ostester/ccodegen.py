@@ -16,13 +16,22 @@ def generate_files(ast, gen_dir):
     logger = logging.getLogger('tests')
     with (gen_dir / 'main.c').open('w') as main:
         main_text = render_main([ast['header']])
-        logger.info(main)
+        logger.info("main.c")
+        logger.info(main_text)
         print(main_text, file=main)
-    with (gen_dir / 'compare.c').open('w') as compare:
-        compare_text = render_header_suite(
-            ast['header'], ast['tests'])
+    hsh_name = 'test_'+ast['header']
+    with (gen_dir / hsh_name).open('w') as hsh:
+        compare_text = render_header_suite_header(ast['header'])
+        logger.info(hsh_name)
         logger.info(compare_text)
-        print(compare_text, file=compare)
+        print(compare_text, file=hsh)
+    hs_name = hsh_name.replace('.h', '.c')
+    with (gen_dir / hs_name).open('w') as header_suite:
+        compare_text = render_header_suite(
+            ast['header'], hsh_name, ast['tests'])
+        logger.info(hs_name)
+        logger.info(compare_text)
+        print(compare_text, file=header_suite)
 
 
 def render_main(tested_headers):
@@ -35,12 +44,14 @@ def render_main(tested_headers):
 
 def render_header_suite_header(header):
     template = env.get_template('header_suite_header.jinja2.c')
-    template.render(function=header)
+    return template.render(function=header)
 
 
-def render_header_suite(header, functions):
+def render_header_suite(test_header, hs_header, functions):
     """
     Returns a string containing the entry point for the generated tests
     """
     template = env.get_template('header_suite.jinja2.c')
-    return template.render(test_header_name=header,functions=functions)
+    return template.render(test_header_name=test_header,
+                           header_suite_header_name=hs_header,
+                           functions=functions)
