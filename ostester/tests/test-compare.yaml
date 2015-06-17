@@ -8,6 +8,6 @@
     - args: [0, !zeroed 3]
       equals: 0
     - data:
-        array: ['c', 'b', 'a']
-      args: ['a', array]
+        array: ['a', 'b', 'c']
+      args: ['b', array]
       greater_than: 0

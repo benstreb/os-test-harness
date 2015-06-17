@@ -7,9 +7,9 @@ int main(void) {
 
 int compare(char chr, char* str) {
     for (int i = 0; str[i] != 0; i++) {
-        if (str[i] > chr) {
+        if (str[i] < chr) {
             return 1;
-        } else if (str[i] < chr) {
+        } else if (str[i] > chr) {
             return -1;
         }
     }
