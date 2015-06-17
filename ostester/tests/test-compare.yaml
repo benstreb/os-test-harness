@@ -11,3 +11,7 @@
         array: ['a', 'b', 'c']
       args: ['b', array]
       greater_than: 0
+    - data:
+        array: ['z']
+      args: ['b', array]
+      less_than: 0
