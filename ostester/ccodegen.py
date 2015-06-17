@@ -1,8 +1,11 @@
 import logging
+import shutil
+import os.path
 
 from jinja2 import Environment, PackageLoader
 
 from . import utils
+import ostester
 
 env = Environment(loader=PackageLoader('ostester', 'templates'),
                   trim_blocks=True,
@@ -32,6 +35,10 @@ def generate_files(ast, gen_dir):
         logger.info(hs_name)
         logger.info(compare_text)
         print(compare_text, file=header_suite)
+    shutil.copyfile(
+        os.path.join(ostester.__path__[0], 'templates/test_main.h'),
+        str(gen_dir/'test_main.h'),
+    )
 
 
 def render_main(tested_headers):
