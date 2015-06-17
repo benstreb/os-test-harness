@@ -33,11 +33,9 @@ def test_case(test_case, function_type):
     global test_number
     # Pointer in args
     # Literals in args
-    declarations = new_declarations(test_case.get('data', {}),
-                                    test_case['args'],
-                                    function_type.inputs)
-    args = [Declaration(t, v) for t, v in
-            zip(test_case['args'], function_type.inputs)]
+    declarations, args = new_declarations(test_case.get('data', {}),
+                                          test_case['args'],
+                                          function_type.inputs)
     comparison, = test_case.keys() & comparisons
     test_number += 1
     return {'declarations': declarations,
@@ -48,25 +46,30 @@ def test_case(test_case, function_type):
 
 def new_declarations(explicit_declarations, args, function_inputs):
     new_declarations = []
+    arg_values = []
     for arg, type in zip(args, function_inputs):
         if isinstance(arg, yr.Pointer):
-            new_declarations.extend(
-                recursive_declarations(explicit_declarations,
-                                       arg, utils.new_name(), type))
+            d, a = recursive_declarations(explicit_declarations,
+                                          arg, utils.new_name(), type)
+            new_declarations.extend(d)
+            arg_values.extend(a)
         else:
-            new_declarations.append(Declaration(arg, type))
-    return new_declarations
+            d = Declaration(arg, type)
+            new_declarations.append(d)
+            arg_values.append(d)
+    return (new_declarations, arg_values)
 
 
 def recursive_declarations(declarations, arg, name, type):
     if isinstance(arg, yr.Pointer):
         inner_type = type.inner_type
-        return (recursive_declarations(declarations,
-                                       declarations[arg.data],
-                                       arg.data,
-                                       inner_type) +
-                (Declaration(arg.data, type, name),))
-    return (Declaration(declarations[name], type, name),)
+        d, a = recursive_declarations(declarations,
+                                      declarations[arg.data],
+                                      arg.data,
+                                      inner_type)
+        return (d + [Declaration(arg.data, type, name)], a)
+    d = Declaration(declarations[name], type, name)
+    return ([d], [d])
 
 
 class BinOp(namedtuple('BinOp', ('f', 'arg'))):

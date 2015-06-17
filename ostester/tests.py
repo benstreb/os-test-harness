@@ -48,12 +48,13 @@ class YAMLParseTestCase(unittest.TestCase):
 class ASTTestCase(unittest.TestCase):
     def test_new_declarations(self):
         int = types.Int()
-        decls = ast.new_declarations({}, [3], [int])
+        decls, args = ast.new_declarations({}, [3], [int])
         self.assertEqual(len(decls), 1)
         self.assertEqual(decls[0].value, 3)
         self.assertEqual(decls[0].type, int)
+        self.assertEqual(decls[0], args[0])
         int_ptr = types.Pointer(int)
-        decls = ast.new_declarations(
+        decls, args = ast.new_declarations(
             {'value': 3},
             [yamlreader.Pointer('value')],
             [int_ptr])
@@ -62,8 +63,9 @@ class ASTTestCase(unittest.TestCase):
         self.assertEqual(decls[0].type, int)
         self.assertEqual(decls[1].value, 'value')
         self.assertEqual(decls[1].type, int_ptr)
+        self.assertEqual(decls[0], args[0])
         int_ptr_ptr = types.Pointer(int_ptr)
-        decls = ast.new_declarations(
+        decls, args = ast.new_declarations(
             {'value': 3, 'inner_ptr': yamlreader.Pointer('value')},
             [yamlreader.Pointer('inner_ptr')],
             [int_ptr_ptr])
@@ -72,6 +74,7 @@ class ASTTestCase(unittest.TestCase):
         self.assertEqual(decls[1].value, 'value')
         self.assertEqual(decls[2].value, 'inner_ptr')
         self.assertEqual(decls[2].type, int_ptr_ptr)
+        self.assertEqual(decls[0], args[0])
 
 
 class TypeTestCase(unittest.TestCase):
