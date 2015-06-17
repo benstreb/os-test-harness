@@ -185,6 +185,7 @@ class IntegrationTestCase(unittest.TestCase):
             call(['gcc', '-I', str(gen_dir), '-I', 'ostester/tests/',
                   '-o', str(gen_dir/'test.out'), str(gen_dir/'main.c'),
                   str(gen_dir/'test_compare.c'), 'ostester/tests/compare.c'])
+            self.assertEqual(call([str(gen_dir/'test.out')]), 0)
 
 
 def load_tests(loader, tests, ignore):
