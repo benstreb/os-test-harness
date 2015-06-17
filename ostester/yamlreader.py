@@ -82,6 +82,32 @@ class Pointer(yaml.YAMLObject):
                 other.data == self.data)
 
 
+class Declaration(yaml.YAMLObject):
+    """
+    Represents a Declaration used in an argument.
+    """
+    yaml_loader = yaml.SafeLoader
+    yaml_tag = '!decl'
+
+    def __init__(self, name):
+        self.name = name
+
+    @classmethod
+    def from_yaml(cls, loader, node):
+        return Declaration(node.value.strip())
+
+    @classmethod
+    def to_yaml(cls, dumper, data):
+        return dumper.represent_scalar(Declaration.yaml_tag, data.name)
+
+    def __repr__(self):
+        return 'Declaration({})'.format(repr(self.name))
+
+    def __eq__(self, other):
+        return (isinstance(other, Declaration) and
+                self.name == other.name)
+
+
 class Signature(yaml.YAMLObject):
     """
     Represents the signature of the function under test.

@@ -44,6 +44,13 @@ class YAMLParseTestCase(unittest.TestCase):
         self.assertTrue(all(isinstance(t, types._CType) for t in sig.inputs))
         self.assertTrue(isinstance(sig.output, types._CType))
 
+    def test_argument(self):
+        Declaration = yamlreader.Declaration
+        decl = yaml.safe_load('!decl value')
+        self.assertEqual(repr(decl), "Declaration('value')")
+        self.assertEqual(decl, Declaration('value'))
+        self.assertEqual(yaml.dump(decl), "!decl 'value'\n")
+
 
 class ASTTestCase(unittest.TestCase):
     def test_new_declarations(self):
