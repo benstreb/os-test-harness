@@ -82,6 +82,13 @@ class ASTTestCase(unittest.TestCase):
         self.assertEqual(decls[2].value, 'inner_ptr')
         self.assertEqual(decls[2].type, int_ptr_ptr)
         self.assertEqual(decls[0], args[0])
+        decls, args = ast.new_declarations(
+            {'value': 3},
+            [yamlreader.Declaration('value')],
+            [int])
+        self.assertEqual(len(decls), 1)
+        self.assertEqual(args[0].name, decls[0].name)
+        self.assertEqual(args[0].value, 3)
 
 
 class TypeTestCase(unittest.TestCase):
