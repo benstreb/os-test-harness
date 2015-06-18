@@ -13,5 +13,5 @@
       greater_than: 0
     - data:
         array: ['z']
-      args: ['b', array]
+      args: ['b', !decl array]
       less_than: 0
