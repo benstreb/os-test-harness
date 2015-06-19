@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 
 import yaml
 
-from . import ast, ccodegen, types, values, yamlreader
+from . import ast, ccodegen, types, values, yamlreader, arguments
 
 
 class YAMLParseTestCase(unittest.TestCase):
@@ -186,6 +186,16 @@ class CodegenTestCase(unittest.TestCase):
         )
         self.assertTrue(suite)
         logging.getLogger('tests').info(suite)
+
+
+class ArgumentsTestCase(unittest.TestCase):
+    def test_tests_run(self):
+        parser = arguments.parser()
+        namespace = parser.parse_args(["-t"])
+        self.assertTrue(namespace.test)
+        namespace = parser.parse_args(["-t", "-v"])
+        self.assertTrue(namespace.test)
+        self.assertEqual(namespace.verbose, 1)
 
 
 class IntegrationTestCase(unittest.TestCase):
