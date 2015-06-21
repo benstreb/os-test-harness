@@ -190,7 +190,7 @@ class CodegenTestCase(unittest.TestCase):
 
 class ArgumentsTestCase(unittest.TestCase):
     def test_tests_run(self):
-        parser = arguments.parser()
+        parser = arguments.test_parser()
         namespace = parser.parse_args(["-t"])
         self.assertTrue(namespace.test)
         namespace = parser.parse_args(["-t", "-v"])

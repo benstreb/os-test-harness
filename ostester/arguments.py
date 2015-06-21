@@ -1,7 +1,7 @@
 import argparse
 
 
-def parser():
+def test_parser():
     parser = argparse.ArgumentParser(
         description="Generates C code to perform tests specified by a YAML"
             "file",
