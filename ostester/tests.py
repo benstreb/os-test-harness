@@ -197,6 +197,16 @@ class ArgumentsTestCase(unittest.TestCase):
         self.assertTrue(namespace.test)
         self.assertEqual(namespace.verbose, 1)
 
+    def test_codegen_arguments(self):
+        parser = arguments.parser()
+        with TemporaryDirectory() as temp_dir:
+            gen_dir = Path(temp_dir)
+            namespace = parser.parse_args(
+                ['ostester/tests/test-compare.yaml', '-o', str(gen_dir)])
+            self.assertEqual(namespace.yaml_file,
+                             'ostester/tests/test-compare.yaml')
+            self.assertEqual(namespace.output_dir, str(gen_dir))
+
 
 class IntegrationTestCase(unittest.TestCase):
     def test_front_to_back(self):
