@@ -7,8 +7,7 @@ def parser():
             "file",
     )
     parser.add_argument('yaml_file', help='the yaml file containing the tests')
-    parser.add_argument('--output-dir', '-o', metavar='DIR', help='create the '
-                        'files in DIR')
+    parser.add_argument('output_dir', help='create the files in output_dir')
     return parser
 
 

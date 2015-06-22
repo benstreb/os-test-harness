@@ -202,7 +202,7 @@ class ArgumentsTestCase(unittest.TestCase):
         with TemporaryDirectory() as temp_dir:
             gen_dir = Path(temp_dir)
             namespace = parser.parse_args(
-                ['ostester/tests/test-compare.yaml', '-o', str(gen_dir)])
+                ['ostester/tests/test-compare.yaml', str(gen_dir)])
             self.assertEqual(namespace.yaml_file,
                              'ostester/tests/test-compare.yaml')
             self.assertEqual(namespace.output_dir, str(gen_dir))
