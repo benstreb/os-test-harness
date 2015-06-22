@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+
+from pathlib import Path
+from ostester import arguments, yamlreader, ast, ccodegen
+
+parser = arguments.parser()
+namespace = parser.parse_args()
+with open(namespace.yaml_file, 'r') as f:
+    yml = yamlreader.parse(f)
+ast_ = ast.transform(yml)
+ccodegen.generate_files(ast_, Path(namespace.output_dir))
