@@ -1,19 +1,12 @@
 import argparse
 import logging
-import sys
 import unittest
+from . import arguments
 
 
-parser = argparse.ArgumentParser(
-    description="Generates C code to perform tests specified by a YAML file",
-)
-parser.add_argument('--test', '-t', action='store', nargs='?',
-                    const=True, default=False,
-                    help="Run the test suite")
-parser.add_argument('--verbose', '-v', action='count', default=0)
-
-
+parser = arguments.test_parser()
 args = parser.parse_args()
+
 if args.verbose:
     logging.basicConfig(level=logging.INFO)
 else:
